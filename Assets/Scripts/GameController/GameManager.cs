@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+// ReSharper disable once CheckNamespace
+public class GameManager : EnumManager
 {
     // Start is called before the first frame update
     void Start()
