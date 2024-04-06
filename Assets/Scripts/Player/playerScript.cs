@@ -84,6 +84,21 @@ public class playerScript : MonoBehaviour
         }
     }
 
+    void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.tag.ToLower().Equals("player"))
+        {
+            col.collider.enabled = false;
+        }
+        else
+        {
+            col.collider.enabled = true;
+        }
+
+
+    }
+
+
     void AddPotionEffect(PotionEffect potion)
     {
         this.effects.Add(potion);
