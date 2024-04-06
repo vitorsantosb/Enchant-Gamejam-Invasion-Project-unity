@@ -33,7 +33,7 @@ public class playerScript : MonoBehaviour
         else
         {
             Camera camera = GetComponentInChildren<Camera>();
-            if(camera != null)
+            if (camera != null)
             {
                 camera.gameObject.SetActive(false);
             }
@@ -62,11 +62,11 @@ public class playerScript : MonoBehaviour
 
     void HandlePotions()
     {
+
+        potionListText.text = "";
         for (int i = 0; i < effects.Count; i++)
         {
             PotionEffect effect = effects[i];
-
-            Debug.Log(effect.expireIn - DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
             if (effect.expireIn < DateTimeOffset.UtcNow.ToUnixTimeMilliseconds())
             {
                 effects.RemoveAt(i);
@@ -75,13 +75,15 @@ public class playerScript : MonoBehaviour
                 continue;
             }
 
-            forceMultiplier += effect.speed;
+            float remainingTime = effect.expireIn - DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            potionListText.text += "Poção velocidade: " + effect.speed + "x (" + remainingTime + "ms)\n";
         }
     }
 
     void AddPotionEffect(PotionEffect potion)
     {
         this.effects.Add(potion);
+        forceMultiplier += potion.speed;
     }
 }
 
