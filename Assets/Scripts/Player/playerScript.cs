@@ -4,13 +4,16 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.UI;
 
 public class playerScript : MonoBehaviour
 {
     private Rigidbody2D body;
     private float forceMultiplier = 4;
     private List<PotionEffect> effects;
-    private TextMeshPro potionListText;
+
+    [SerializeField]
+    private Text potionListText;
 
     public PhotonView view;
     public GameObject cameraPrefab;
@@ -18,7 +21,8 @@ public class playerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.potionListText = GetComponent<TextMeshPro>();
+        this.potionListText = GameObject.FindGameObjectWithTag("potionText").GetComponent<Text>();
+
         this.effects = new List<PotionEffect>();
         this.body = GetComponent<Rigidbody2D>();
         view = GetComponent<PhotonView>();

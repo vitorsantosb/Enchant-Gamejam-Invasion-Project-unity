@@ -103,6 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80130fd6b2ea4437d86e947a173a896a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  potionListText: {fileID: 0}
   view: {fileID: 252080665369764457}
   cameraPrefab: {fileID: 6009441287859406463, guid: 6d0e59d842dc949a99462987405fa919, type: 3}
 --- !u!61 &2900778898295731476
