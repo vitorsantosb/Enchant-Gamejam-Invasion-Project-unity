@@ -17,8 +17,6 @@ public class Player : MonoBehaviour
     public PhotonView view;
     public GameObject cameraPrefab;
 		
-
-    public Image healthBar;
     private float maxHealth = 100;
     private float health = 100;
     private float strength = 5;
@@ -66,10 +64,9 @@ public class Player : MonoBehaviour
     {
         if (view.IsMine)
         {
-            UpdateLifeBar();
             HandlePotions();
-						OnFire();
-						FireBullet();
+			OnFire();
+			FireBullet();
 
             if (Input.GetKeyDown(KeyCode.F))
             {
@@ -145,8 +142,6 @@ public class Player : MonoBehaviour
     public float GetMaxHealth() => this.maxHealth;
     public float GetStrength() => this.strength;
 
-
-    public void UpdateLifeBar() => this.healthBar.fillAmount = 1.0f / this.maxHealth * this.health;
 
 		private void OnFire()
 		{

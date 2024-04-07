@@ -20,7 +20,8 @@ public class Enemy : MonoBehaviour
 		[HideInInspector]
 		public int maxHealth;
 		private float speed;
-		private float damage;
+		[HideInInspector]
+		public int damage;
 		private EnemyType type;
 		private float attackRange = 1.0f;
 		private float attackRangeDistance = 5.0f;

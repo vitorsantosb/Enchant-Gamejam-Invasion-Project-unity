@@ -3,27 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Colliders : MonoBehaviour
+public class PlayerColliders : MonoBehaviour
 {
-    public int playerHealth;
-    public int maxHealth;
-    public Image LifeBar;
+    
+		[HideInInspector]
+		public int playerHealth;
+    public int maxHealth = 120;
+
 
     void Start()
     {
-        this.playerHealth = 100;
-        this.maxHealth = 120;
-
+			playerHealth = maxHealth;
     }
-    public void OnCollisionEnter(Collision other)
+    public void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "bullet")
+        if (other.gameObject.GetComponent<Enemy>())
         {
-            RemoveHealth(10);
-            Debug.Log("HIT COLISION");
+	        Enemy enemy = other.gameObject.GetComponent<Enemy>();
+	        RemoveHealth(enemy.damage);
+	        Debug.Log("HIT COLISION");
         }
     }
-    public void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "bullet")
         {
@@ -50,5 +51,5 @@ public class Colliders : MonoBehaviour
     public void AddHealth(int lifeIncrement) => this.SetLife(this.playerHealth + lifeIncrement);
     public void RemoveHealth(int lifeReduced) => this.SetLife(this.playerHealth - lifeReduced);
     //public void UpdateLifeBar() => this.LifeBar.fillAmount = ((1.6f / this.maxHealth) * this.playerHealth);
-    public void DeathController() => Destroy(gameObject);
+    public void DeathController() => Debug.Log("Player is dead");
 }

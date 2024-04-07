@@ -23,10 +23,10 @@ public class EnemyLifeBar : MonoBehaviour
     }
 
 		public void UpdateLifeBar()
-    {
-        Image image = this.GetComponent<Image>();
-        Enemy ownerEnemy = owner.GetComponent<Enemy>();
-				Debug.Log(ownerEnemy.health);
-        image.fillAmount = ((1.6f / ownerEnemy.maxHealth) * ownerEnemy.health);
-    }
+		{
+			Image image = this.GetComponent<Image>();
+			Enemy ownerEnemy = owner.GetComponent<Enemy>();
+			Debug.Log(ownerEnemy.health);
+			image.fillAmount = (float)ownerEnemy.health / ownerEnemy.maxHealth;
+		}
 }

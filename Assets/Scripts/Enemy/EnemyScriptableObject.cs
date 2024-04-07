@@ -7,7 +7,7 @@ namespace EnemyObject
     public class EnemyScriptableObject : ScriptableObject
     {
         public float enemySpeed;
-        public float enemyDamage;
+        public int enemyDamage;
         public EnemyType enemyType;
         public int enemyMaxHealth;
     }
