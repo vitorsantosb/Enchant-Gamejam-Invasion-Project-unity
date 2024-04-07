@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using EnemyObject;
+using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 
 // Player, Enemy, and POI needs to be tagged correctly
@@ -12,6 +15,7 @@ public class Enemy : MonoBehaviour
 		public EnemyScriptableObject enemyObject;
 
 		private int health;
+		private int maxHealth;
 		private float speed;
 		private float damage;
 		private EnemyType type;
@@ -19,6 +23,7 @@ public class Enemy : MonoBehaviour
 		private float attackRangeDistance = 5.0f;
 		private float poiEyesighDistance = 5.0f;
 		private bool isDead = false;
+		private Image lifeBar;
 
 		public GameObject smallerEnemyPrefab;
 		public GameObject enemyBulletPrefab;
@@ -45,10 +50,12 @@ public class Enemy : MonoBehaviour
     {
 			if (enemyObject != null)
 			{
-				this.health = enemyObject.enemyHealth;
+				this.health = enemyObject.enemyMaxHealth;
+				this.maxHealth = enemyObject.enemyMaxHealth;
 				this.speed = enemyObject.enemySpeed;
 				this.damage = enemyObject.enemyDamage;
 				this.type = enemyObject.enemyType;
+				this.lifeBar = enemyObject.enemyLifeBar; //edit here
 			}
 			else
 			{
@@ -373,6 +380,36 @@ public class Enemy : MonoBehaviour
 					if (type == EnemyType.SPLITTER) Split();
 					Destroy(gameObject);
 				}
+		}
+
+		//enemy health
+
+		public int GetLife() => this.health;
+
+		public void SetLife(int newHealth)
+		{
+			if (newHealth >= maxHealth)
+			{
+				this.health = this.maxHealth;
+			}
+			else
+			{
+				this.health = newHealth;
+			}
+			CheckAndDie();
+		}
+
+		public void AddHealth(int lifeIncrement) => this.SetLife(this.health + lifeIncrement);
+		public void RemoveHealth(int lifeReduce) => this.SetLife(this.health - lifeReduce);
+		public void UpdateLifeBar() => this.lifeBar.fillAmount = ((1.6f / this.maxHealth) * this.health);
+		// enemy Colliders
+		private void OnCollisionEnter(Collision other)
+		{
+			if (other.gameObject.CompareTag("Bullet"))
+			{
+				RemoveHealth(20);
+				UpdateLifeBar();
+			}
 		}
 
 		// get behaviors based on the enemy type, first index is highest priority, poi is before than player
