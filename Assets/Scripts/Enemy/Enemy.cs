@@ -343,8 +343,19 @@ public class Enemy : MonoBehaviour
 				{
 					if (Vector3.Distance(poi.transform.position, transform.position) <= attackRange)
 					{
-						// TODO: attack poi
-						return true;
+						if (attackCooldownTimer <= 0)
+						{
+							// TODO: add attack animation
+							GameObject damageArea = Instantiate(enemyDamageAreaPrefab, transform.position, Quaternion.identity);
+							damageArea.GetComponent<EnemyDamageArea>().InitializeDamageArea(this, 0.5f, damage);
+							attackCooldownTimer = attackCooldown;
+							return true;
+						}
+						else
+						{
+							attackCooldownTimer -= Time.deltaTime;
+							return false;
+						}
 					}
 				}
 				return false;
