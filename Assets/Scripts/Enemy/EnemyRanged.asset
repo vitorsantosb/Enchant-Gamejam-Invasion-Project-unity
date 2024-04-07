@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d021efab0b6f14a4aa84fb13cd7de2a2, type: 3}
   m_Name: EnemyRanged
   m_EditorClassIdentifier: 
-  enemyHealth: 15
   enemySpeed: 5
   enemyDamage: 4
   enemyType: 3
+  enemyMaxHealth: 60
+  enemyLifeBar: {fileID: 0}
