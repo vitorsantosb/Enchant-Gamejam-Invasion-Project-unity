@@ -5,18 +5,22 @@ using TMPro;
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
-public class playerScript : MonoBehaviour
+public class Player : MonoBehaviour
 {
     private Rigidbody2D body;
     private float forceMultiplier = 4;
     private List<PotionEffect> effects;
-
-    [SerializeField]
     private Text potionListText;
-
+    private Inventory inventory;
     public PhotonView view;
     public GameObject cameraPrefab;
+
+    public Image healthBar;
+    private float maxHealth = 100;
+    private float health = 100;
+    private float strength = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +29,7 @@ public class playerScript : MonoBehaviour
 
         this.effects = new List<PotionEffect>();
         this.body = GetComponent<Rigidbody2D>();
+        this.inventory = GetComponent<Inventory>();
         view = GetComponent<PhotonView>();
 
         // Check if the player is local, if it is set a camera, if not disable the camera
@@ -50,18 +55,34 @@ public class playerScript : MonoBehaviour
     {
         if (view.IsMine)
         {
+            UpdateLifeBar();
+            HandlePotions();
+
             if (Input.GetKeyDown(KeyCode.F))
             {
                 AddPotionEffect(new PotionEffect(5, 5000));
             }
 
-            HandlePotions();
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                this.health -= 15;
+            }
 
             float moveH = Input.GetAxis("Horizontal");
             float moveV = Input.GetAxis("Vertical");
 
-            body.velocity = transform.up * moveV * forceMultiplier + transform.right * moveH * forceMultiplier;
+            if (!inventory.IsOpened())
+            {
+                body.velocity = transform.up * moveV * forceMultiplier + transform.right * moveH * forceMultiplier;
+            }
+            else
+            {
+                body.velocity = new Vector2(0, 0);
+            }
         }
+
+        // Disable collisions between players, using de Layer Id 6 (Player)
+        Physics2D.IgnoreLayerCollision(6, 6);
     }
 
     void HandlePotions()
@@ -84,18 +105,19 @@ public class playerScript : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision col)
+    public void OnCollisionEnter(Collision other)
     {
-        if (col.gameObject.tag.ToLower().Equals("player"))
+        if (other.gameObject.tag == "Player")
         {
-            col.collider.enabled = false;
+            Debug.Log("HIT COLISION");
         }
-        else
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
         {
-            col.collider.enabled = true;
+            Debug.Log("HIT  ");
         }
-
-
     }
 
 
@@ -104,16 +126,13 @@ public class playerScript : MonoBehaviour
         this.effects.Add(potion);
         forceMultiplier += potion.speed;
     }
-}
 
-public class PotionEffect
-{
-    public int speed;
-    public long expireIn;
+    public Inventory GetInventory() => this.inventory;
+    public float GetHealth() => this.health;
+    public float GetMaxHealth() => this.maxHealth;
+    public float GetStrength() => this.strength;
 
-    public PotionEffect(int speed, long expireIn)
-    {
-        this.speed = speed;
-        this.expireIn = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() + expireIn;
-    }
+
+    public void UpdateLifeBar() => this.healthBar.fillAmount = 1.0f / this.maxHealth * this.health;
+
 }
