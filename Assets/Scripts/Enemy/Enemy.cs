@@ -275,7 +275,7 @@ public class Enemy : MonoBehaviour
 				GameObject player = FindNearestPlayer();
 				if (player != null)
 				{
-					MoveTowards(player.transform.position);
+					MoveTowards(player.transform.position, 1.2f);
 					return true;
 				}
 				return false;
@@ -289,7 +289,7 @@ public class Enemy : MonoBehaviour
 				{
 					if (Vector3.Distance(poi.transform.position, transform.position) <= poiEyesighDistance)
 					{
-						MoveTowards(poi.transform.position);
+						MoveTowards(poi.transform.position, 1.0f);
 						return true;
 					}
 				}
@@ -303,15 +303,20 @@ public class Enemy : MonoBehaviour
 				if (enemies.Length > 0)
 				{
 					GameObject nearestEnemy = enemies[0];
-					MoveTowards(nearestEnemy.transform.position);
+					MoveTowards(nearestEnemy.transform.position, 1.0f);
 					return true;
 				}
 				return false;
 		}
 
-		private void MoveTowards(Vector3 target)
+		private void MoveTowards(Vector3 target, float keepDistance = 0f)
 		{
 			Rigidbody2D rb = GetComponent<Rigidbody2D>();
+			if (Vector3.Distance(target, transform.position) < keepDistance)
+			{
+				rb.velocity = new Vector2(0, 0);
+				return;
+			};
 			rb.MovePosition(transform.position + (target - transform.position).normalized * speed * Time.deltaTime);
 		}
 
