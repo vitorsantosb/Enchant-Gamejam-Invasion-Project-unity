@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
 		[HideInInspector]
 		public int damage;
 		private EnemyType type;
-		private float attackRange = 1.0f;
+		private float attackRange = 1.5f;
 		public float attackCooldown = 1f;
 		private float attackCooldownTimer = 0f;
 		private float attackRangeDistance = 5.0f;
@@ -275,7 +275,7 @@ public class Enemy : MonoBehaviour
 				GameObject player = FindNearestPlayer();
 				if (player != null)
 				{
-					transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+					MoveTowards(player.transform.position);
 					return true;
 				}
 				return false;
@@ -289,7 +289,7 @@ public class Enemy : MonoBehaviour
 				{
 					if (Vector3.Distance(poi.transform.position, transform.position) <= poiEyesighDistance)
 					{
-						transform.position = Vector3.MoveTowards(transform.position, poi.transform.position, speed * Time.deltaTime);
+						MoveTowards(poi.transform.position);
 						return true;
 					}
 				}
@@ -303,10 +303,16 @@ public class Enemy : MonoBehaviour
 				if (enemies.Length > 0)
 				{
 					GameObject nearestEnemy = enemies[0];
-					transform.position = Vector3.MoveTowards(transform.position, nearestEnemy.transform.position, speed * Time.deltaTime);
+					MoveTowards(nearestEnemy.transform.position);
 					return true;
 				}
 				return false;
+		}
+
+		private void MoveTowards(Vector3 target)
+		{
+			Rigidbody2D rb = GetComponent<Rigidbody2D>();
+			rb.MovePosition(transform.position + (target - transform.position).normalized * speed * Time.deltaTime);
 		}
 
 		// attack the nearest player

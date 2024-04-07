@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3214438561280504827}
   - component: {fileID: 6015548311700938122}
   - component: {fileID: 7626820523162164296}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LifeBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 398980022232989426}
   - component: {fileID: 7524506114153155490}
   - component: {fileID: 8263096859899400537}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 4133734364062082065}
   - component: {fileID: 5218152001110353615}
   - component: {fileID: 5507494843425316820}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SpaceshipPOI
   m_TagString: POI
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!61 &5507494843425316820
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -401,7 +401,7 @@ GameObject:
   - component: {fileID: 343191777342452482}
   - component: {fileID: 3008628020349211626}
   - component: {fileID: 6950976880790464330}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
