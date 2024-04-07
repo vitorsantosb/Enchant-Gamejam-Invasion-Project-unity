@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
 	public Player Owner { get; private set; }
 	public float bulletSpeed = 10f;
 	public float bulletLifeTime = 2f;
-	public float bulletDamage = 4f;
+	public int bulletDamage = 4;
 
 
 	public void Start()
@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour
 			Destroy(gameObject);
 	}
 
-	public void InitializeBullet(Player owner, float speed, float lifeTime, float damage)
+	public void InitializeBullet(Player owner, float speed, float lifeTime, int damage)
 	{
 			Owner = owner;
 			bulletSpeed = speed;
@@ -30,8 +30,15 @@ public class Bullet : MonoBehaviour
 			Rigidbody2D rb = GetComponent<Rigidbody2D>();
 			Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			Vector2 direction = (mousePosition - (Vector2)transform.position).normalized;
-			rb.AddForce(direction * bulletSpeed, ForceMode2D.Impulse);
+			rb.velocity = direction * bulletSpeed;
 
 			transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
+	}
+
+	private void OnTriggerEnter2D(Collider2D other){
+		if(other.GetComponent<Enemy>()){
+			other.GetComponent<Enemy>().RemoveHealth(bulletDamage);
+			Destroy(gameObject);
+		}
 	}
 }

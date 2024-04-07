@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1180524065571892050}
   - component: {fileID: 4896996861767033286}
   - component: {fileID: 5454503318433089281}
+  - component: {fileID: 8675929653940485928}
   m_Layer: 0
   m_Name: EnemyNormal
   m_TagString: Untagged
@@ -102,6 +103,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyObject: {fileID: 11400000, guid: 4641a637ba2244462aef530d368810ee, type: 2}
+  health: 0
+  maxHealth: 0
   smallerEnemyPrefab: {fileID: 0}
   enemyBulletPrefab: {fileID: 0}
 --- !u!114 &5454503318433089281
@@ -126,6 +129,42 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!58 &8675929653940485928
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046822374173140120}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.5
 --- !u!1 &2820962973543511596
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,6 +176,7 @@ GameObject:
   - component: {fileID: 5781453664642271063}
   - component: {fileID: 7621422531387446827}
   - component: {fileID: 360048362189865316}
+  - component: {fileID: 7033772097931393371}
   m_Layer: 0
   m_Name: LifeBar
   m_TagString: Untagged
@@ -201,6 +241,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7033772097931393371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2820962973543511596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c34fab7778e61436fac6563d6aadd5d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6571764724046208013
 GameObject:
   m_ObjectHideFlags: 0

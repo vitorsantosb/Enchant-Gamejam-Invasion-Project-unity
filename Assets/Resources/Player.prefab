@@ -212,7 +212,7 @@ MonoBehaviour:
   healthBar: {fileID: 5472922470599960614}
   bulletPrefab: {fileID: 5756629785595491477, guid: 34b59a016ef2e40469c4c2f8688afe30, type: 3}
   bulletSpeed: 10
-  bulletLifeTime: 0.2
+  bulletLifeTime: 10
   bulletDamage: 4
   bulletCooldown: 0.1
 --- !u!61 &2900778898295731476

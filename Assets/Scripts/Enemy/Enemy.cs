@@ -12,10 +12,13 @@ using Random = UnityEngine.Random;
 public class Enemy : MonoBehaviour
 {
     
+		private bool debugMode = false;
 		public EnemyScriptableObject enemyObject;
 
-		private int health;
-		private int maxHealth;
+		[HideInInspector]
+		public int health;
+		[HideInInspector]
+		public int maxHealth;
 		private float speed;
 		private float damage;
 		private EnemyType type;
@@ -23,7 +26,6 @@ public class Enemy : MonoBehaviour
 		private float attackRangeDistance = 5.0f;
 		private float poiEyesighDistance = 5.0f;
 		private bool isDead = false;
-		private Image lifeBar;
 
 		public GameObject smallerEnemyPrefab;
 		public GameObject enemyBulletPrefab;
@@ -55,7 +57,6 @@ public class Enemy : MonoBehaviour
 				this.speed = enemyObject.enemySpeed;
 				this.damage = enemyObject.enemyDamage;
 				this.type = enemyObject.enemyType;
-				this.lifeBar = enemyObject.enemyLifeBar; //edit here
 			}
 			else
 			{
@@ -71,89 +72,120 @@ public class Enemy : MonoBehaviour
 
 			// execute behaviors based on priority, first index is highest priority
 			// if a behavior returns false, move to the next behavior
-			if(!isDead){
+			if (!isDead)
+			{
 				foreach (EnemyBehavior behavior in behaviors)
 				{
 					switch (behavior)
 					{
 						case EnemyBehavior.IDLE:
-							if (Idle()) {
-								Debug.Log("Idle executed"); 
+							if (Idle())
+							{
+								if (debugMode) Debug.Log("Idle executed");
 								return;
-							}else{
-								Debug.Log("Idle failed");
+							}
+							else
+							{
+								if (debugMode) Debug.Log("Idle failed");
 							}
 							break;
 						case EnemyBehavior.CHASE_PLAYER:
-							if (ChasePlayer()) {
-								Debug.Log("ChasePlayer executed"); 
+							if (ChasePlayer())
+							{
+								if (debugMode) Debug.Log("ChasePlayer executed");
 								return;
-							}else{
-								Debug.Log("ChasePlayer failed");
+							}
+							else
+							{
+								if (debugMode) Debug.Log("ChasePlayer failed");
 							}
 							break;
 						case EnemyBehavior.CHASE_POI:
-							if (ChasePOI()) {
-								Debug.Log("ChasePOI executed"); 
+							if (ChasePOI())
+							{
+								if (debugMode) Debug.Log("ChasePOI executed");
 								return;
-							}else{
-								Debug.Log("ChasePOI failed");
+							}
+							else
+							{
+								if (debugMode) Debug.Log("ChasePOI failed");
 							}
 							break;
 						case EnemyBehavior.CHASE_ENEMY:
-							if (ChaseEnemy()) {
-								Debug.Log("ChaseEnemy executed"); 
+							if (ChaseEnemy())
+							{
+								if (debugMode) Debug.Log("ChaseEnemy executed");
 								return;
-							}else{
-								Debug.Log("ChaseEnemy failed");
+							}
+							else
+							{
+								if (debugMode) Debug.Log("ChaseEnemy failed");
 							}
 							break;
 						case EnemyBehavior.ATTACK_PLAYER:
-							if (AttackPlayer()) {
-								Debug.Log("AttackPlayer executed"); 
+							if (AttackPlayer())
+							{
+								if (debugMode) Debug.Log("AttackPlayer executed");
 								return;
-							}else{
-								Debug.Log("AttackPlayer failed");
+							}
+							else
+							{
+								if (debugMode) Debug.Log("AttackPlayer failed");
 							}
 							break;
 						case EnemyBehavior.ATTACK_POI:
-							if (AttackPOI()) {
-								Debug.Log("AttackPOI executed"); 
+							if (AttackPOI())
+							{
+								if (debugMode) Debug.Log("AttackPOI executed");
 								return;
-							}else{
-								Debug.Log("AttackPOI failed");
+							}
+							else
+							{
+								if (debugMode) Debug.Log("AttackPOI failed");
 							}
 							break;
 						case EnemyBehavior.ATTACK_RANGED_PLAYER:
-							if (AttackRangedPlayer()) {
-								Debug.Log("AttackRangedPlayer executed"); 
+							if (AttackRangedPlayer())
+							{
+								if (debugMode) Debug.Log("AttackRangedPlayer executed");
 								return;
-							}else{
-								Debug.Log("AttackRangedPlayer failed");
+							}
+							else
+							{
+								if (debugMode) Debug.Log("AttackRangedPlayer failed");
 							}
 							break;
 						case EnemyBehavior.ATTACK_RANGED_POI:
-							if (AttackRangedPOI()) {
-								Debug.Log("AttackRangedPOI executed"); 
+							if (AttackRangedPOI())
+							{
+								if (debugMode) Debug.Log("AttackRangedPOI executed");
 								return;
-							}else{
-								Debug.Log("AttackRangedPOI failed");
+							}
+							else
+							{
+								if (debugMode) Debug.Log("AttackRangedPOI failed");
 							}
 							break;
 						case EnemyBehavior.HEAL:
-							if (HealNearbyEnemies()) {
-								Debug.Log("HealNearbyEnemies executed"); 
+							if (HealNearbyEnemies())
+							{
+								if (debugMode) Debug.Log("HealNearbyEnemies executed");
 								return;
-							}else{
-								Debug.Log("HealNearbyEnemies failed");
+							}
+							else
+							{
+								if (debugMode) Debug.Log("HealNearbyEnemies failed");
 							}
 							break;
 						case EnemyBehavior.SPLIT:
-							if (Split()) {
-								Debug.Log("Split executed"); 
+							if (Split())
+							{
+								if (debugMode) Debug.Log("Split executed");
 								return;
-							}else{
-								Debug.Log("Split failed");
+							}
+							else
+							{
+								if (debugMode) Debug.Log("Split failed");
 							}
 							break;
 					}
@@ -181,8 +213,6 @@ public class Enemy : MonoBehaviour
 								nearestPlayer = player;
 						}
 				}
-
-				Debug.Log("Nearest player: " + nearestPlayer.name);
 
 				return nearestPlayer;
 		}
@@ -401,16 +431,8 @@ public class Enemy : MonoBehaviour
 
 		public void AddHealth(int lifeIncrement) => this.SetLife(this.health + lifeIncrement);
 		public void RemoveHealth(int lifeReduce) => this.SetLife(this.health - lifeReduce);
-		public void UpdateLifeBar() => this.lifeBar.fillAmount = ((1.6f / this.maxHealth) * this.health);
-		// enemy Colliders
-		private void OnCollisionEnter(Collision other)
-		{
-			if (other.gameObject.CompareTag("Bullet"))
-			{
-				RemoveHealth(20);
-				UpdateLifeBar();
-			}
-		}
+		
+
 
 		// get behaviors based on the enemy type, first index is highest priority, poi is before than player
 		private EnemyBehavior[] GetBehavior(EnemyType enemyType)

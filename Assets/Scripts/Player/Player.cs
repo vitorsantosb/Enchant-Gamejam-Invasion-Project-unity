@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
 		public GameObject bulletPrefab;
 		public float bulletSpeed = 10f;
 		public float bulletLifeTime = 2f;
-		public float bulletDamage = 4f;
+		public int bulletDamage = 4;
 		public float bulletCooldown = 0.5f;
 		private float bulletCooldownTimer = 0f;
 		private bool shootContinuously = false;

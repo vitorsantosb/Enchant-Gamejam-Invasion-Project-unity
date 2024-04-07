@@ -10,7 +10,6 @@ namespace EnemyObject
         public float enemyDamage;
         public EnemyType enemyType;
         public int enemyMaxHealth;
-        public Image enemyLifeBar;
     }
 
     public enum EnemyType

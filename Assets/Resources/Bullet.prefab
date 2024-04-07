@@ -158,7 +158,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: d5da1edc79599416fbe60d0902dab8cf, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -197,3 +197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e0b2431d9c1e44e5b0c882ec451a2fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletSpeed: 10
+  bulletLifeTime: 2
+  bulletDamage: 4
