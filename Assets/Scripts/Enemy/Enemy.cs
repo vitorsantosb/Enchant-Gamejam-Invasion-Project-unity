@@ -24,16 +24,19 @@ public class Enemy : MonoBehaviour
 		public int damage;
 		private EnemyType type;
 		private float attackRange = 1.0f;
+		public float attackCooldown = 1f;
+		private float attackCooldownTimer = 0f;
 		private float attackRangeDistance = 5.0f;
 		private float poiEyesighDistance = 5.0f;
 		private bool isDead = false;
 
 		public GameObject smallerEnemyPrefab;
 		public GameObject enemyBulletPrefab;
+		public GameObject enemyDamageAreaPrefab;
 
 
-		// enemy possible behaviors
-		public enum EnemyBehavior
+	// enemy possible behaviors
+	public enum EnemyBehavior
 		{
 				IDLE,
 				CHASE_PLAYER,
@@ -314,8 +317,19 @@ public class Enemy : MonoBehaviour
 				{
 					if (Vector3.Distance(player.transform.position, transform.position) <= attackRange)
 					{
-						// TODO: attack player
-						return true;
+						if (attackCooldownTimer <= 0)
+						{
+							// TODO: add attack animation
+							GameObject damageArea = Instantiate(enemyDamageAreaPrefab, transform.position, Quaternion.identity);
+							damageArea.GetComponent<EnemyDamageArea>().InitializeDamageArea(this, 0.5f, damage);
+							attackCooldownTimer = attackCooldown;
+							return true;
+						}
+						else
+						{
+							attackCooldownTimer -= Time.deltaTime;
+							return false;
+						}
 					}
 				}
 				return false;

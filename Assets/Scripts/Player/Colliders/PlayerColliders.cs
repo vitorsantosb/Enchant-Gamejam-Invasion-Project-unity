@@ -17,20 +17,21 @@ public class PlayerColliders : MonoBehaviour
     }
     public void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.GetComponent<Enemy>())
-        {
-	        Enemy enemy = other.gameObject.GetComponent<Enemy>();
-	        RemoveHealth(enemy.damage);
-	        Debug.Log("HIT COLISION");
-        }
+        // if (other.gameObject.GetComponent<Enemy>()) {
+	      //   Enemy enemy = other.gameObject.GetComponent<Enemy>();
+	      //   RemoveHealth(enemy.damage);
+	      //   Debug.Log("HIT COLISION");
+        // }
+				
+				
     }
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "bullet")
-        {
-            RemoveHealth(50);
-            Debug.Log("HIT !!!!");
-        }
+        if (other.gameObject.GetComponent<EnemyDamageArea>()) {
+	        EnemyDamageArea enemyDamageArea = other.gameObject.GetComponent<EnemyDamageArea>();
+	        RemoveHealth(enemyDamageArea.areaDamage);
+	        Destroy(other.gameObject);
+				}
     }
     public int GetLife() => this.playerHealth;
     public void SetLife(int increment)

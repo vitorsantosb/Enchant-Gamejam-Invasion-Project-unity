@@ -105,8 +105,10 @@ MonoBehaviour:
   enemyObject: {fileID: 11400000, guid: 4641a637ba2244462aef530d368810ee, type: 2}
   health: 0
   maxHealth: 0
+  damage: 0
   smallerEnemyPrefab: {fileID: 0}
   enemyBulletPrefab: {fileID: 0}
+  enemyDamageAreaPrefab: {fileID: 8852491157300456934, guid: 276d71edef1d6408baab6f3ea537608c, type: 3}
 --- !u!114 &5454503318433089281
 MonoBehaviour:
   m_ObjectHideFlags: 0
