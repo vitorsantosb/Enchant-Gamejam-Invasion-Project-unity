@@ -102,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyObject: {fileID: 11400000, guid: 4641a637ba2244462aef530d368810ee, type: 2}
   smallerEnemyPrefab: {fileID: 0}
+  enemyBulletPrefab: {fileID: 0}
 --- !u!114 &5454503318433089281
 MonoBehaviour:
   m_ObjectHideFlags: 0
