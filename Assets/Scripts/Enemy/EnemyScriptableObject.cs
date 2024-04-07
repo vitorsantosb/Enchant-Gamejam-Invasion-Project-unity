@@ -1,14 +1,23 @@
 ﻿using UnityEngine;
 
-namespace Enemy
+namespace EnemyObject
 {
     [CreateAssetMenu(fileName = "enemyObject", menuName = "Enemy/New enemy",order = 0)]
     public class EnemyScriptableObject : ScriptableObject
     {
-        public string enemyName;
         public int enemyHealth;
         public float enemySpeed;
         public float enemyDamage;
-        public GameObject enemyObject;
+        public EnemyType enemyType;
+    }
+
+    public enum EnemyType
+    {
+        NORMAL,
+        WEAK,
+        STRONG,
+        RANGED,
+        SPLITTER,
+        HEALER
     }
 }
