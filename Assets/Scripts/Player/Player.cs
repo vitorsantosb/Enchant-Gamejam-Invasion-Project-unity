@@ -16,11 +16,22 @@ public class Player : MonoBehaviour
     private Inventory inventory;
     public PhotonView view;
     public GameObject cameraPrefab;
+		
 
     public Image healthBar;
     private float maxHealth = 100;
     private float health = 100;
     private float strength = 5;
+
+		// bullet
+		public GameObject bulletPrefab;
+		public float bulletSpeed = 10f;
+		public float bulletLifeTime = 2f;
+		public float bulletDamage = 4f;
+		public float bulletCooldown = 0.5f;
+		private float bulletCooldownTimer = 0f;
+		private bool shootContinuously = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -57,6 +68,8 @@ public class Player : MonoBehaviour
         {
             UpdateLifeBar();
             HandlePotions();
+						OnFire();
+						FireBullet();
 
             if (Input.GetKeyDown(KeyCode.F))
             {
@@ -135,4 +148,24 @@ public class Player : MonoBehaviour
 
     public void UpdateLifeBar() => this.healthBar.fillAmount = 1.0f / this.maxHealth * this.health;
 
+		private void OnFire()
+		{
+			 shootContinuously = Input.GetMouseButton(0);
+		}
+
+		
+
+		private void FireBullet()
+		{
+			if (shootContinuously && bulletCooldownTimer <= 0f)
+			{
+				// instantiate bullet and set its properties
+				GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+				bullet.GetComponent<Bullet>().InitializeBullet(this, bulletSpeed, bulletLifeTime, bulletDamage);
+
+				bulletCooldownTimer = bulletCooldown;
+			}
+
+			bulletCooldownTimer -= Time.deltaTime;
+		}
 }
