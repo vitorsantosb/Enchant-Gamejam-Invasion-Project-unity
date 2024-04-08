@@ -36,6 +36,15 @@ public class InventoryManager : MonoBehaviour
             }
         }
 
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        {
+            ChangeSelectedSlot(selectedSlot + 1 >= 7 ? 0 : selectedSlot + 1);
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+            ChangeSelectedSlot(selectedSlot - 1 >= 0 ? selectedSlot - 1 : 6);
+        }
+
         // Key pad 1 - 7 to select slot
         if (Input.inputString != null)
         {

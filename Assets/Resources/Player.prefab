@@ -569,8 +569,7 @@ MonoBehaviour:
   - {fileID: 600121950278170328}
   - {fileID: 1809988977732875915}
   items:
-  - {fileID: 11400000, guid: 73785e26be02e3d489b094b27e919854, type: 2}
-  - {fileID: 11400000, guid: 4307537eb9b575a40ad8fa9929993760, type: 2}
+  - {fileID: 11400000, guid: 55d1922870058d84b8ba85ae26ff1b1d, type: 2}
   inventoryItemPrefab: {fileID: 8144080818460491100, guid: d9df57b7a2eaf874bb3c3f0d126737db, type: 3}
   panel: {fileID: 2060039390034768655}
 --- !u!1 &7937897937148056935
@@ -763,7 +762,6 @@ MonoBehaviour:
   bulletDamage: 4
   bulletCooldown: 0.1
   inventoryManager: {fileID: 4113081923560144906}
-  item: {fileID: 11400000, guid: 4307537eb9b575a40ad8fa9929993760, type: 2}
 --- !u!61 &2900778898295731476
 BoxCollider2D:
   m_ObjectHideFlags: 0
