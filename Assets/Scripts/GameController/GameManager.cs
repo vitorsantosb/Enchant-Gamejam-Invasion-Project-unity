@@ -13,7 +13,7 @@ public class GameManager : EnumManager
     // wave config
     public List<GameObject> EnemyList = new();
     private List<GameObject> EnemySpawned = new();
-    
+    private List<GameObject> SpawnPositions = new();
     private int _waveCount;
     private int _waveValue;
     
@@ -26,8 +26,11 @@ public class GameManager : EnumManager
     [SerializeField] private bool enableDebugs = true;
     public void Start()
     {
+
+        _timerLeft = 60f;
+        _initializeTimer = false;
         SetStateGame(STATE_GAME.INITIALIZING);
-        if(enableDebugs) Debug.Log("[GAME_MANAGER] Waiting Photon server connection: " + GetStateGame());
+        if(enableDebugs) Debug.Log("[GAME_MANAGER] Initializing : " + GetStateGame());
     }
 
     public void GenerateWave()
@@ -40,12 +43,15 @@ public class GameManager : EnumManager
 
     public void GenerateEnemies()
     {
-        
+        for (int i = 0; i < EnemyList.Count; i++)
+        {
+            EnemyList[i].GetComponent<Enemy>().enemyObject.GameObject();
+        }
     }
 
     private void Update()
     {
-        if (_initializeTimer)
+        if (GetWaveState() == WAVE_STATE.GENERATE_NEW_WAVE)
         {
             if (_timerLeft > 0)
             {
