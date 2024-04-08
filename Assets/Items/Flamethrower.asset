@@ -10,13 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: Medkit
-  m_EditorClassIdentifier: Assembly-CSharp::FoodItem
-  id: 2
-  image: {fileID: 5008295656622253373, guid: 1ca99dd8d349a4518a6c8d0d2a57de7f, type: 3}
-  type: 1
+  m_Name: Flamethrower
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponItem
+  id: 0
+  image: {fileID: 0}
+  type: 0
   tile: {fileID: 0}
-  actionType: 1
+  actionType: 0
   stackable: 0
-  lifeHeal: 0
-  foodHeal: 0
+  bulletSpeed: 10
+  bulletLifeTime: 2
+  bulletDamage: 4
+  bulletCooldown: 0.5
+  bulletAmount: 1
+  bulletAcurracyAngle: 10
+  bulletSpreadAngle: 10

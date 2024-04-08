@@ -21,15 +21,7 @@ public class Player : MonoBehaviour
     private float health;
     private float strength = 5;
 
-    // bullet
     public GameObject bulletPrefab;
-    public float bulletSpeed = 10f;
-    public float bulletLifeTime = 2f;
-    public int bulletDamage = 4;
-    public float bulletCooldown = 0.5f;
-		public int bulletAmount = 1;
-		public float bulletAcurracyAngle = 10f;
-		public float bulletSpreadAngle = 10f;
     private float bulletCooldownTimer = 0f;
     private bool shootContinuously = false;
 
@@ -187,6 +179,14 @@ public class Player : MonoBehaviour
         // Item in hand is a Weapon and Shooter
         if (itemInHand.type == ItemType.Weapon && itemInHand.actionType == ActionType.Shoot)
         {
+						WeaponItem weaponItem = (WeaponItem)itemInHand;
+						float bulletSpeed = weaponItem.bulletSpeed;
+						float bulletLifeTime = weaponItem.bulletLifeTime;
+						int bulletDamage = weaponItem.bulletDamage;
+						float bulletCooldown = weaponItem.bulletCooldown;
+						int bulletAmount = weaponItem.bulletAmount;
+						float bulletAcurracyAngle = weaponItem.bulletAcurracyAngle;
+						float bulletSpreadAngle = weaponItem.bulletSpreadAngle;
 
             if (shootContinuously && bulletCooldownTimer <= 0f)
             {
