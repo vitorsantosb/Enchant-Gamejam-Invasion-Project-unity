@@ -10,6 +10,9 @@ using UnityEngine.SceneManagement;
 // ReSharper disable once CheckNamespace
 public class GameManager : EnumManager
 {
+    // spawn map props (items, etc...)
+    public SpawnMapProps spawnMapProps;
+
     // wave config
     public List<GameObject> EnemyList = new();
     private List<GameObject> EnemySpawned = new();
