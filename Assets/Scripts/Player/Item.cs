@@ -1,30 +1,62 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[CreateAssetMenu(menuName = "Scriptable object/Item")]
 public class Item : ScriptableObject
 {
-
-
-    [Header("Only gameplay")]
-    public TileBase tile;
-    public ItemType type;
-    public ActionType actionType;
-    public Vector2Int range = new Vector2Int(5, 4);
-
-    [Header("Only UI")]
-    public bool stackable = true;
-
-    [Header("Both")]
+    public int id;
     public Sprite image;
+    public ItemType type;
+    public TileBase tile;
+    public ActionType actionType;
+    public bool stackable;
+}
+
+[CreateAssetMenu(menuName = "Item/New weapon", fileName = "New Weapon")]
+public class WeaponItem : Item
+{
+    public int firerate;
+    public int damage;
+    public int maxAmmo;
+}
+
+[CreateAssetMenu(menuName = "Item/New Food", fileName = "New Food")]
+public class FoodItem : Item
+{
+    public int lifeHeal;
+    public int foodHeal;
+}
+
+[CreateAssetMenu(menuName = "Item/New Potion", fileName = "New Potion")]
+public class PotionItem : Item
+{
+    public int increaseDamage;
+    public int increaseSpeed;
+}
+
+[CreateAssetMenu(menuName = "Item/New Placeable", fileName = "New Placeable")]
+public class PlaceableItem : Item
+{
+    public int life;
+}
+
+[CreateAssetMenu(menuName = "Item/New Spaceship Material", fileName = "New Spaceship Material")]
+public class ShipMaterialItem : Item
+{
 }
 
 public enum ItemType
 {
-    Weapon
+    Weapon,
+    Food,
+    Potion,
+    Placeable,
+    ShipMaterial
 }
 
 public enum ActionType
 {
-    Shoot
+    Shoot,
+    Eat,
+    Place,
+    Fix,
 }
