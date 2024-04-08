@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: Pistol
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponItem
-  id: 1
+  m_Name: Medkit
+  m_EditorClassIdentifier: Assembly-CSharp::FoodItem
+  id: 2
   image: {fileID: 0}
-  type: 0
+  type: 1
   tile: {fileID: 0}
-  actionType: 0
+  actionType: 1
   stackable: 0
-  type: 0
-  firerate: 0
-  damage: 0
-  maxAmmo: 0
+  type: 1
+  lifeHeal: 0
+  foodHeal: 0
