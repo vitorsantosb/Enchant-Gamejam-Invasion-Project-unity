@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f42c356c2230544d93273c57522bdd7, type: 3}
-  m_Name: Pickaxe
+  m_Name: Pistol
   m_EditorClassIdentifier: 
   tile: {fileID: 0}
   type: 0
   actionType: 0
   range: {x: 5, y: 4}
   stackable: 1
-  image: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  image: {fileID: 21300000, guid: 2fb83ea89df639b43a22d707d3c22af1, type: 3}

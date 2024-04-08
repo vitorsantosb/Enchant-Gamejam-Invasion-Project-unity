@@ -6,6 +6,7 @@ public class InventoryManager : MonoBehaviour
 {
 
     public InventorySlot[] inventorySlots;
+    public Item[] items;
     public GameObject inventoryItemPrefab;
     public GameObject panel;
 
@@ -91,6 +92,11 @@ public class InventoryManager : MonoBehaviour
         }
 
         return null;
+    }
+
+    public Item[] GetItems()
+    {
+        return this.items;
     }
 
 

@@ -26,7 +26,7 @@ public class PlayerLifeBar : MonoBehaviour
   {
     Image image = this.GetComponent<Image>();
     Player ownerPlayer = owner.GetComponent<Player>();
-    Debug.Log(ownerPlayer.GetMaxHealth());
+    // Debug.Log(ownerPlayer.GetMaxHealth());
     image.fillAmount = (float)ownerPlayer.GetHealth() / ownerPlayer.GetMaxHealth();
   }
 }

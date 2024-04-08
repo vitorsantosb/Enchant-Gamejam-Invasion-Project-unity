@@ -31,7 +31,6 @@ public class Player : MonoBehaviour
     private bool shootContinuously = false;
 
     public InventoryManager inventoryManager;
-    public Item item;
 
 
     // Start is called before the first frame update
@@ -73,7 +72,10 @@ public class Player : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.C))
             {
-                inventoryManager.AddItem(item);
+                for (int i = 0; i < inventoryManager.GetItems().Length; i++)
+                {
+                    inventoryManager.AddItem(inventoryManager.GetItems()[i]);
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.F))

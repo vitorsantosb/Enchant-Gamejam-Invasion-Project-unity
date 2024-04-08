@@ -26,7 +26,7 @@ public class POILifeBar : MonoBehaviour
 		{
 			Image image = this.GetComponent<Image>();
 			POI ownerPOI = owner.GetComponent<POI>();
-			Debug.Log(ownerPOI.health);
+			// Debug.Log(ownerPOI.health);
 			image.fillAmount = (float)ownerPOI.health / ownerPOI.maxHealth;
 		}
 }

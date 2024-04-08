@@ -26,7 +26,7 @@ public class EnemyLifeBar : MonoBehaviour
 		{
 			Image image = this.GetComponent<Image>();
 			Enemy ownerEnemy = owner.GetComponent<Enemy>();
-			Debug.Log(ownerEnemy.health);
+			// Debug.Log(ownerEnemy.health);
 			image.fillAmount = (float)ownerEnemy.health / ownerEnemy.maxHealth;
 		}
 }
