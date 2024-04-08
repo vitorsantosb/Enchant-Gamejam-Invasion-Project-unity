@@ -27,6 +27,9 @@ public class Player : MonoBehaviour
     public float bulletLifeTime = 2f;
     public int bulletDamage = 4;
     public float bulletCooldown = 0.5f;
+		public int bulletAmount = 1;
+		public float bulletAcurracyAngle = 10f;
+		public float bulletSpreadAngle = 10f;
     private float bulletCooldownTimer = 0f;
     private bool shootContinuously = false;
 
@@ -187,9 +190,27 @@ public class Player : MonoBehaviour
 
             if (shootContinuously && bulletCooldownTimer <= 0f)
             {
-                // instantiate bullet and set its properties
-                GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
-                bullet.GetComponent<Bullet>().InitializeBullet(this, bulletSpeed, bulletLifeTime, bulletDamage);
+								// get the main camera and convert the mouse position to world point
+								Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+								Vector2 direction = (mousePosition - (Vector2)transform.position).normalized;
+
+								if (bulletAmount > 1) {
+									float startAngle = ((bulletAmount * bulletSpreadAngle) / 2) * -1;
+									float stepAngle = bulletSpreadAngle;
+
+									for (int i = 0; i < bulletAmount; i++)
+									{
+										GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+										Vector2 newDirection = Quaternion.Euler(0, 0, startAngle + (i * stepAngle)) * direction;
+										bullet.GetComponent<Bullet>().InitializeBullet(this, bulletSpeed, bulletLifeTime, bulletDamage, newDirection);
+									}
+								}
+								else
+								{
+									GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+									Vector2 newDirection = Quaternion.Euler(0, 0, UnityEngine.Random.Range(-bulletAcurracyAngle, bulletAcurracyAngle)) * direction;
+									bullet.GetComponent<Bullet>().InitializeBullet(this, bulletSpeed, bulletLifeTime, bulletDamage, newDirection);
+								}
 
                 bulletCooldownTimer = bulletCooldown;
             }

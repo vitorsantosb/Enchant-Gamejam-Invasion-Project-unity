@@ -758,12 +758,13 @@ MonoBehaviour:
   view: {fileID: 252080665369764457}
   cameraPrefab: {fileID: 6009441287859406463, guid: 6d0e59d842dc949a99462987405fa919, type: 3}
   bulletPrefab: {fileID: 5756629785595491477, guid: 34b59a016ef2e40469c4c2f8688afe30, type: 3}
-  bulletSpeed: 10
-  bulletLifeTime: 10
+  bulletSpeed: 5
+  bulletLifeTime: 1
   bulletDamage: 4
-  bulletCooldown: 0.1
+  bulletCooldown: 0.2
+  bulletAmount: 1
+  bulletAcurracyAngle: 10
   inventoryManager: {fileID: 4113081923560144906}
-  item: {fileID: 11400000, guid: 4307537eb9b575a40ad8fa9929993760, type: 2}
 --- !u!61 &2900778898295731476
 BoxCollider2D:
   m_ObjectHideFlags: 0
