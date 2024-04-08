@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      player_running_bot_05_0: -1277585666608368211
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

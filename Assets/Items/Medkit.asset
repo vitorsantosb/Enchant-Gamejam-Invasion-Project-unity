@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: Medkit
   m_EditorClassIdentifier: Assembly-CSharp::FoodItem
   id: 2
-  image: {fileID: 0}
+  image: {fileID: -2840091044939572525, guid: c050705df8386b44ebb1813068cb7e2b, type: 3}
   type: 1
   tile: {fileID: 0}
   actionType: 1
   stackable: 0
-  type: 1
   lifeHeal: 0
   foodHeal: 0

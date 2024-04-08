@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a759200990eb1074f9895a3999ced71b
+guid: c050705df8386b44ebb1813068cb7e2b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6741171867281366089
-    second: player_running_bot_08_0
+      213: -2840091044939572525
+    second: spr_box_vida_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,30 +96,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: player_running_bot_08_0
+      name: spr_box_vida_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 580
-        height: 459
+        width: 742
+        height: 498
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -127,8 +114,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7b366d827eb8272a0800000000000000
-      internalID: -6741171867281366089
+      spriteID: 3dadb98fd38f598d0800000000000000
+      internalID: -2840091044939572525
       vertices: []
       indices: 
       edges: []
@@ -143,8 +130,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      player_running_bot_08_0: -6741171867281366089
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
