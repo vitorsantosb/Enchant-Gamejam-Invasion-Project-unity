@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class connectToServer : MonoBehaviourPunCallbacks
 {
+    /*
     // Start is called before the first frame update
     void Start()
     {
@@ -21,11 +22,12 @@ public class connectToServer : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.JoinLobby();
-
     }
 
     public override void OnJoinedLobby()
     {
-        SceneManager.LoadScene("Lobby");
+        GameManager gm = new ();
+        gm.UpdateSceneAfterGetConnection();
     }
+    */
 }
