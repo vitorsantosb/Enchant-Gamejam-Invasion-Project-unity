@@ -126,6 +126,12 @@ public class Player : MonoBehaviour
             RemoveHealth(enemyDamageArea.areaDamage);
             Destroy(other.gameObject);
         }
+        if (other.gameObject.GetComponent<Item>())
+        {
+            Item item = other.gameObject.GetComponent<Item>();
+            inventoryManager.AddItem(item);
+            Destroy(other.gameObject);
+        }
     }
 
     void AddPotionEffect(PotionEffect potion)
