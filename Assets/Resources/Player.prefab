@@ -569,6 +569,7 @@ MonoBehaviour:
   - {fileID: 600121950278170328}
   - {fileID: 1809988977732875915}
   inventoryItemPrefab: {fileID: 8144080818460491100, guid: d9df57b7a2eaf874bb3c3f0d126737db, type: 3}
+  panel: {fileID: 2060039390034768655}
 --- !u!1 &7937897937148056935
 GameObject:
   m_ObjectHideFlags: 0
@@ -660,7 +661,6 @@ GameObject:
   - component: {fileID: 761865413696107557}
   - component: {fileID: 252080665369764457}
   - component: {fileID: 977886283027159535}
-  - component: {fileID: 3615308833234357455}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -890,20 +890,6 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
---- !u!114 &3615308833234357455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8790446778292613169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51c4d628541c6404f8df832e46925e83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerHealth: 0
-  maxHealth: 120
 --- !u!1 &9145825934572906461
 GameObject:
   m_ObjectHideFlags: 0
@@ -916,7 +902,6 @@ GameObject:
   - component: {fileID: 5180795869764914762}
   - component: {fileID: 234007401018679131}
   - component: {fileID: 2637405610710334698}
-  - component: {fileID: 2096665276897227854}
   m_Layer: 6
   m_Name: UIInventory
   m_TagString: Untagged
@@ -1007,19 +992,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &2096665276897227854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9145825934572906461}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c63926d69d274704babd5925dfb347ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panel: {fileID: 2060039390034768655}
 --- !u!1001 &797762563778286941
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4468,6 +4440,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bf5107e49c05cc448c4351998980de7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  image: {fileID: 0}
+  selectedColor: {r: 0, g: 0, b: 0, a: 0}
+  notSelectedColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!224 &8054430419289395692 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1039161616062572251, guid: 30a48031859f1234582f1be7170d44f9, type: 3}

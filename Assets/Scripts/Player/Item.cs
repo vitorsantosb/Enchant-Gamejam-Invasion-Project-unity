@@ -21,10 +21,10 @@ public class Item : ScriptableObject
 
 public enum ItemType
 {
-    Tool
+    Weapon
 }
 
 public enum ActionType
 {
-    Mine
+    Shoot
 }

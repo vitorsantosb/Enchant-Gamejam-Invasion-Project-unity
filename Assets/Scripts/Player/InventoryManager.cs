@@ -7,6 +7,7 @@ public class InventoryManager : MonoBehaviour
 
     public InventorySlot[] inventorySlots;
     public GameObject inventoryItemPrefab;
+    public GameObject panel;
 
     int selectedSlot = -1;
 
@@ -17,6 +18,22 @@ public class InventoryManager : MonoBehaviour
 
     private void Update()
     {
+
+        if (Input.GetKey(KeyCode.Tab))
+        {
+            if (!panel.activeSelf)
+            {
+                Open();
+            }
+        }
+        else
+        {
+            if (panel.activeSelf)
+            {
+                Close();
+
+            }
+        }
 
         // Key pad 1 - 7 to select slot
         if (Input.inputString != null)
@@ -76,4 +93,16 @@ public class InventoryManager : MonoBehaviour
         return null;
     }
 
+
+    public bool IsOpened() => this.panel.activeSelf;
+
+    public void Open()
+    {
+        panel.SetActive(true);
+    }
+
+    public void Close()
+    {
+        panel.SetActive(false);
+    }
 }

@@ -17,7 +17,8 @@ public class Player : MonoBehaviour
     public GameObject cameraPrefab;
 
     private float maxHealth = 100;
-    private float health = 100;
+
+    private float health;
     private float strength = 5;
 
     // bullet
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        this.health = this.maxHealth;
         this.potionListText = GameObject.FindGameObjectWithTag("potionText").GetComponent<Text>();
 
         this.effects = new List<PotionEffect>();
@@ -79,15 +81,14 @@ public class Player : MonoBehaviour
                 AddPotionEffect(new PotionEffect(5, 5000));
             }
 
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                this.health -= 15;
-            }
-
             float moveH = Input.GetAxis("Horizontal");
             float moveV = Input.GetAxis("Vertical");
 
-            body.velocity = transform.up * moveV * forceMultiplier + transform.right * moveH * forceMultiplier;
+            // Move if inventory is closed
+            if (!inventoryManager.IsOpened())
+            {
+                body.velocity = transform.up * moveV * forceMultiplier + transform.right * moveH * forceMultiplier;
+            }
         }
 
         // Disable collisions between players, using de Layer Id 6 (Player)
@@ -114,21 +115,16 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            Debug.Log("HIT COLISION");
-        }
-    }
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            Debug.Log("HIT  ");
-        }
-    }
 
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.GetComponent<EnemyDamageArea>())
+        {
+            EnemyDamageArea enemyDamageArea = other.gameObject.GetComponent<EnemyDamageArea>();
+            RemoveHealth(enemyDamageArea.areaDamage);
+            Destroy(other.gameObject);
+        }
+    }
 
     void AddPotionEffect(PotionEffect potion)
     {
@@ -137,8 +133,30 @@ public class Player : MonoBehaviour
     }
 
     public float GetHealth() => this.health;
+    public void RemoveHealth(float _health)
+    {
+        this.health -= _health;
+        if (this.health <= 0.0)
+        {
+            Die();
+        }
+    }
+    public void AddHealth(float _health)
+    {
+        this.health += _health;
+        if (this.health >= this.maxHealth)
+        {
+            this.health = this.maxHealth;
+        }
+    }
     public float GetMaxHealth() => this.maxHealth;
     public float GetStrength() => this.strength;
+
+    public void Die()
+    {
+        this.health = this.maxHealth;
+        transform.position = new Vector3(0, 0, 0);
+    }
 
 
     private void OnFire()
@@ -148,15 +166,27 @@ public class Player : MonoBehaviour
 
     private void FireBullet()
     {
-        if (shootContinuously && bulletCooldownTimer <= 0f)
+        // Dont shoot if inventory is opened
+        if (inventoryManager.IsOpened()) return;
+
+        Item itemInHand = inventoryManager.GetSelectedItem();
+        // There is no item in hand
+        if (!itemInHand) return;
+
+        // Item in hand is a Weapon and Shooter
+        if (itemInHand.type == ItemType.Weapon && itemInHand.actionType == ActionType.Shoot)
         {
-            // instantiate bullet and set its properties
-            GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
-            bullet.GetComponent<Bullet>().InitializeBullet(this, bulletSpeed, bulletLifeTime, bulletDamage);
 
-            bulletCooldownTimer = bulletCooldown;
+            if (shootContinuously && bulletCooldownTimer <= 0f)
+            {
+                // instantiate bullet and set its properties
+                GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+                bullet.GetComponent<Bullet>().InitializeBullet(this, bulletSpeed, bulletLifeTime, bulletDamage);
+
+                bulletCooldownTimer = bulletCooldown;
+            }
+
+            bulletCooldownTimer -= Time.deltaTime;
         }
-
-        bulletCooldownTimer -= Time.deltaTime;
     }
 }
