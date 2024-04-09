@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1638376058978098}
   - component: {fileID: 2459235215010936543}
   m_Layer: 6
-  m_Name: WorldObject
+  m_Name: DecoWorldObject
   m_TagString: WorldObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

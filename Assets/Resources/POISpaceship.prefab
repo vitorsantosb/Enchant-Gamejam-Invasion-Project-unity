@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 4878124084201082692}
   - component: {fileID: 2155634039102293800}
   m_Layer: 8
-  m_Name: SpaceshipPOI
+  m_Name: POISpaceship
   m_TagString: POI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

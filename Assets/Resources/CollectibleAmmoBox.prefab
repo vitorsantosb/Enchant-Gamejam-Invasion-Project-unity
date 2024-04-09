@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1734855226138658847, guid: 128ec9ddaa6fb47c9934f595853b0c47, type: 3}
       propertyPath: m_Name
-      value: AmmoBoxItem Variant
+      value: AmmoBoxItem
       objectReference: {fileID: 0}
     - target: {fileID: 1944397610752206570, guid: 128ec9ddaa6fb47c9934f595853b0c47, type: 3}
       propertyPath: m_LocalPosition.x
@@ -51,6 +51,14 @@ PrefabInstance:
     - target: {fileID: 1944397610752206570, guid: 128ec9ddaa6fb47c9934f595853b0c47, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3443623229342831456, guid: 128ec9ddaa6fb47c9934f595853b0c47, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -7825027223577396811, guid: a708bb21e2b5b41e4b2d69a1667b81c8, type: 3}
+    - target: {fileID: 3443623229342831456, guid: 128ec9ddaa6fb47c9934f595853b0c47, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4043421341592485925, guid: 128ec9ddaa6fb47c9934f595853b0c47, type: 3}
       propertyPath: item
