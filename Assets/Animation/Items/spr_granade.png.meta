@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      spr_granade_0: 613338926344061051
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

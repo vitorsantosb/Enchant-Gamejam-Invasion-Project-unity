@@ -191,7 +191,7 @@ public class Player : MonoBehaviour
             Destroy(other.gameObject);
         }
     }
-
+	
   
 
     public float GetHealth() => this.health;
