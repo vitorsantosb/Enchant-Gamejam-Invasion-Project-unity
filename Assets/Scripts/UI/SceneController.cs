@@ -8,4 +8,9 @@ public class SceneController : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+
+    public void CloseGame()
+    {
+        Application.Quit();
+    }
 }

@@ -15,7 +15,8 @@ public class GameManager : EnumManager
     public GameManagerScriptableObject gameManagerConfig;
 
     // spawn map props (items, etc...)
-    public SpawnMapProps spawnMapProps;
+    public GameObject playerObj;
+
 
     // wave config
     public List<GameObject> EnemyList = new();
@@ -41,6 +42,10 @@ public class GameManager : EnumManager
 
     //Interface UI
     public Text _turnCountTxt;
+
+    public GameObject deathScreenGameObject;
+
+    public GameObject winScreenGameObject;
 
     //console debugs 
     [SerializeField] private bool enableDebugs;
@@ -151,8 +156,6 @@ public class GameManager : EnumManager
             SetWaveState(WAVE_STATE.GENERATE_NEW_WAVE);
             readyButton.gameObject.SetActive(false);
             GenerateWave();
-
-            _turnCount++;
         }
     }
 
@@ -167,14 +170,17 @@ public class GameManager : EnumManager
 
     void UpdateGameVarieblesForNextTurn()
     {
-        this._waveValue = _waveValue + 10;
         this._waveSpawnLimit = _waveSpawnLimit + 10;
-        this._turnCount++;
+        this._turnCount += 1;
         this._turnCountTxt.text = _turnCount.ToString();
         this._timerLeft = gameManagerConfig.timerInSeconds;
 
         if (_turnCount == 10)
         {
+            if (winScreenGameObject != null)
+            {
+                winScreenGameObject.SetActive(true);
+            }
             //TODO finish the game
         }
 
@@ -183,7 +189,7 @@ public class GameManager : EnumManager
             for (int i = 0; i <= EnemySpawned.Count; i++)
             {
                 Destroy(this.EnemySpawned[i].gameObject);
-                if(enableDebugs) Debug.Log("[DESTROYED] GameObject: " + EnemySpawned[i].gameObject.name);
+                if (enableDebugs) Debug.Log("[DESTROYED] GameObject: " + EnemySpawned[i].gameObject.name);
                 EnemySpawned.Remove(EnemySpawned[i]);
             }
 

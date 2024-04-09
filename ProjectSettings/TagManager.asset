@@ -10,6 +10,7 @@ TagManager:
   - Bullet
   - Enemy
   - WorldObject
+  - MainCanvas
   layers:
   - Default
   - TransparentFX

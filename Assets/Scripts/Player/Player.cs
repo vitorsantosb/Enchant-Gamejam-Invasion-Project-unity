@@ -28,6 +28,8 @@ public class Player : MonoBehaviour
     public InventoryManager inventoryManager;
 
 
+    public GameObject deathScreen;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,7 +44,8 @@ public class Player : MonoBehaviour
         if (view.IsMine)
         {
             GameObject cameraObj = Instantiate(cameraPrefab, transform.position, Quaternion.identity);
-            cameraObj.transform.position = new Vector3(cameraObj.transform.position.x, cameraObj.transform.position.y, -10f);
+            cameraObj.transform.position =
+                new Vector3(cameraObj.transform.position.x, cameraObj.transform.position.y, -10f);
             cameraObj.transform.parent = transform;
         }
         else
@@ -54,12 +57,11 @@ public class Player : MonoBehaviour
             }
         }
 
-				// add mockup items to the inventory
-				for (int i = 0; i < inventoryManager.GetItems().Length; i++)
-				{
-						inventoryManager.AddItem(inventoryManager.GetItems()[i]);
-				}
-
+        // add mockup items to the inventory
+        for (int i = 0; i < inventoryManager.GetItems().Length; i++)
+        {
+            inventoryManager.AddItem(inventoryManager.GetItems()[i]);
+        }
     }
 
     // Update is called once per frame
@@ -71,16 +73,13 @@ public class Player : MonoBehaviour
             OnFire();
             FireBullet();
 
-						// handles item use clicks
-						if(Input.GetMouseButtonDown(0)){
-							OnConsumePotions();
-							OnConsumeFood();
-						}
+            // handles item use clicks
+            if (Input.GetMouseButtonDown(0))
+            {
+                OnConsumePotions();
+                OnConsumeFood();
+            }
 
-					
-             
-
-           
 
             float moveH = Input.GetAxis("Horizontal");
             float moveV = Input.GetAxis("Vertical");
@@ -98,82 +97,84 @@ public class Player : MonoBehaviour
 
     void HandlePotions()
     {
-				potionListText.text = "";
-				for (int i = 0; i < effects.Count; i++)
-				{
-						PotionEffect effect = effects[i];
-						if (effect.expireIn < DateTimeOffset.UtcNow.ToUnixTimeMilliseconds())
-						{
-								effects.RemoveAt(i);
-								i--;
-								forceMultiplier -= effect.speed;
-								strength -= effect.damage;
-								continue;
-						}
+        potionListText.text = "";
+        for (int i = 0; i < effects.Count; i++)
+        {
+            PotionEffect effect = effects[i];
+            if (effect.expireIn < DateTimeOffset.UtcNow.ToUnixTimeMilliseconds())
+            {
+                effects.RemoveAt(i);
+                i--;
+                forceMultiplier -= effect.speed;
+                strength -= effect.damage;
+                continue;
+            }
 
-						float remainingTime = effect.expireIn - DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-						potionListText.text += "Poção velocidade: " + effect.speed + "x (" + remainingTime + "ms)\n";
-						potionListText.text += "Poção dano: " + effect.damage + " (" + remainingTime + "ms)\n"; // Display the damage effect
-				}
+            float remainingTime = effect.expireIn - DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            potionListText.text += "Poção velocidade: " + effect.speed + "x (" + remainingTime + "ms)\n";
+            potionListText.text +=
+                "Poção dano: " + effect.damage + " (" + remainingTime + "ms)\n"; // Display the damage effect
+        }
     }
 
-		void OnConsumePotions(){
-			// Dont shoot if inventory is opened
+    void OnConsumePotions()
+    {
+        // Dont shoot if inventory is opened
         if (inventoryManager.IsOpened()) return;
 
         Item itemInHand = inventoryManager.GetSelectedItem();
-				int slot = inventoryManager.GetSelectedSlot();
+        int slot = inventoryManager.GetSelectedSlot();
         // There is no item in hand
         if (!itemInHand) return;
 
         // Item in hand is a Weapon and Shooter
         if (itemInHand.type == ItemType.Potion && itemInHand.actionType == ActionType.Speed)
         {
-						PotionItem potionItem = (PotionItem)itemInHand;
-						this.effects.Add(new PotionEffect(potionItem.increaseSpeed, 0, potionItem.duration));
-        		forceMultiplier += potionItem.increaseSpeed;
-						// remove the potion from the inventory
-						inventoryManager.RemoveItemFromSlot(slot);
-				}
+            PotionItem potionItem = (PotionItem)itemInHand;
+            this.effects.Add(new PotionEffect(potionItem.increaseSpeed, 0, potionItem.duration));
+            forceMultiplier += potionItem.increaseSpeed;
+            // remove the potion from the inventory
+            inventoryManager.RemoveItemFromSlot(slot);
+        }
 
-				// Item in hand is a Weapon and Shooter
+        // Item in hand is a Weapon and Shooter
         if (itemInHand.type == ItemType.Potion && itemInHand.actionType == ActionType.Damage)
         {
-						PotionItem potionItem = (PotionItem)itemInHand;
-						this.effects.Add(new PotionEffect(0, potionItem.increaseDamage, potionItem.duration));
-						strength += potionItem.increaseDamage;
-						// remove the potion from the inventory
-						inventoryManager.RemoveItemFromSlot(slot);
-				}
-		}
+            PotionItem potionItem = (PotionItem)itemInHand;
+            this.effects.Add(new PotionEffect(0, potionItem.increaseDamage, potionItem.duration));
+            strength += potionItem.increaseDamage;
+            // remove the potion from the inventory
+            inventoryManager.RemoveItemFromSlot(slot);
+        }
+    }
 
-		void OnConsumeFood(){
-			// Dont shoot if inventory is opened
-				if (inventoryManager.IsOpened()) return;
+    void OnConsumeFood()
+    {
+        // Dont shoot if inventory is opened
+        if (inventoryManager.IsOpened()) return;
 
-				Item itemInHand = inventoryManager.GetSelectedItem();
-				int slot = inventoryManager.GetSelectedSlot();
-				// There is no item in hand
-				if (!itemInHand) return;
+        Item itemInHand = inventoryManager.GetSelectedItem();
+        int slot = inventoryManager.GetSelectedSlot();
+        // There is no item in hand
+        if (!itemInHand) return;
 
-				// Item in hand is a Weapon and Shooter
-				if (itemInHand.type == ItemType.Food && itemInHand.actionType == ActionType.Heal)
-				{
-						FoodItem foodItem = (FoodItem)itemInHand;
-						this.AddHealth(foodItem.lifeHeal);
-						// remove the potion from the inventory
-						inventoryManager.RemoveItemFromSlot(slot);
-				}
+        // Item in hand is a Weapon and Shooter
+        if (itemInHand.type == ItemType.Food && itemInHand.actionType == ActionType.Heal)
+        {
+            FoodItem foodItem = (FoodItem)itemInHand;
+            this.AddHealth(foodItem.lifeHeal);
+            // remove the potion from the inventory
+            inventoryManager.RemoveItemFromSlot(slot);
+        }
 
-				if (itemInHand.type == ItemType.Food && itemInHand.actionType == ActionType.Eat)
-				{
-						FoodItem foodItem = (FoodItem)itemInHand;
-						this.AddHealth(foodItem.foodHeal);
-						// remove the potion from the inventory
-						inventoryManager.RemoveItemFromSlot(slot);
-				}
-		}
-
+        if (itemInHand.type == ItemType.Food && itemInHand.actionType == ActionType.Eat)
+        {
+            FoodItem foodItem = (FoodItem)itemInHand;
+            this.AddHealth(foodItem.foodHeal);
+            // remove the potion from the inventory
+            inventoryManager.RemoveItemFromSlot(slot);
+        }
+    }
 
 
     public void OnTriggerEnter2D(Collider2D other)
@@ -184,6 +185,7 @@ public class Player : MonoBehaviour
             RemoveHealth(enemyDamageArea.areaDamage);
             Destroy(other.gameObject);
         }
+
         if (other.gameObject.GetComponent<CollectibleItem>())
         {
             CollectibleItem collectibleItem = other.gameObject.GetComponent<CollectibleItem>();
@@ -191,10 +193,10 @@ public class Player : MonoBehaviour
             Destroy(other.gameObject);
         }
     }
-	
-  
+
 
     public float GetHealth() => this.health;
+
     public void RemoveHealth(float _health)
     {
         this.health -= _health;
@@ -203,6 +205,7 @@ public class Player : MonoBehaviour
             Die();
         }
     }
+
     public void AddHealth(float _health)
     {
         this.health += _health;
@@ -211,6 +214,7 @@ public class Player : MonoBehaviour
             this.health = this.maxHealth;
         }
     }
+
     public float GetMaxHealth() => this.maxHealth;
     public int GetStrength() => this.strength;
 
@@ -218,6 +222,10 @@ public class Player : MonoBehaviour
     {
         this.health = this.maxHealth;
         transform.position = new Vector3(0, 0, 0);
+        GameObject defaultScreen = GameObject.FindGameObjectWithTag("MainCanvas");
+        defaultScreen.SetActive(false);
+        deathScreen.SetActive(true);
+        Destroy(this.gameObject);
     }
 
 
@@ -238,38 +246,43 @@ public class Player : MonoBehaviour
         // Item in hand is a Weapon and Shooter
         if (itemInHand.type == ItemType.Weapon && itemInHand.actionType == ActionType.Shoot)
         {
-						WeaponItem weaponItem = (WeaponItem)itemInHand;
-						float bulletSpeed = weaponItem.bulletSpeed;
-						float bulletLifeTime = weaponItem.bulletLifeTime;
-						int bulletDamage = weaponItem.bulletDamage + strength;
-						float bulletCooldown = weaponItem.bulletCooldown;
-						int bulletAmount = weaponItem.bulletAmount;
-						float bulletAcurracyAngle = weaponItem.bulletAcurracyAngle;
-						float bulletSpreadAngle = weaponItem.bulletSpreadAngle;
+            WeaponItem weaponItem = (WeaponItem)itemInHand;
+            float bulletSpeed = weaponItem.bulletSpeed;
+            float bulletLifeTime = weaponItem.bulletLifeTime;
+            int bulletDamage = weaponItem.bulletDamage + strength;
+            float bulletCooldown = weaponItem.bulletCooldown;
+            int bulletAmount = weaponItem.bulletAmount;
+            float bulletAcurracyAngle = weaponItem.bulletAcurracyAngle;
+            float bulletSpreadAngle = weaponItem.bulletSpreadAngle;
 
             if (shootContinuously && bulletCooldownTimer <= 0f)
             {
-								// get the main camera and convert the mouse position to world point
-								Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-								Vector2 direction = (mousePosition - (Vector2)transform.position).normalized;
+                // get the main camera and convert the mouse position to world point
+                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector2 direction = (mousePosition - (Vector2)transform.position).normalized;
 
-								if (bulletAmount > 1) {
-									float startAngle = ((bulletAmount * bulletSpreadAngle) / 2) * -1;
-									float stepAngle = bulletSpreadAngle;
+                if (bulletAmount > 1)
+                {
+                    float startAngle = ((bulletAmount * bulletSpreadAngle) / 2) * -1;
+                    float stepAngle = bulletSpreadAngle;
 
-									for (int i = 0; i < bulletAmount; i++)
-									{
-										GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
-										Vector2 newDirection = Quaternion.Euler(0, 0, startAngle + (i * stepAngle)) * direction;
-										bullet.GetComponent<Bullet>().InitializeBullet(this, bulletSpeed, bulletLifeTime, bulletDamage, newDirection);
-									}
-								}
-								else
-								{
-									GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
-									Vector2 newDirection = Quaternion.Euler(0, 0, UnityEngine.Random.Range(-bulletAcurracyAngle, bulletAcurracyAngle)) * direction;
-									bullet.GetComponent<Bullet>().InitializeBullet(this, bulletSpeed, bulletLifeTime, bulletDamage, newDirection);
-								}
+                    for (int i = 0; i < bulletAmount; i++)
+                    {
+                        GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+                        Vector2 newDirection = Quaternion.Euler(0, 0, startAngle + (i * stepAngle)) * direction;
+                        bullet.GetComponent<Bullet>().InitializeBullet(this, bulletSpeed, bulletLifeTime, bulletDamage,
+                            newDirection);
+                    }
+                }
+                else
+                {
+                    GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+                    Vector2 newDirection =
+                        Quaternion.Euler(0, 0, UnityEngine.Random.Range(-bulletAcurracyAngle, bulletAcurracyAngle)) *
+                        direction;
+                    bullet.GetComponent<Bullet>()
+                        .InitializeBullet(this, bulletSpeed, bulletLifeTime, bulletDamage, newDirection);
+                }
 
                 bulletCooldownTimer = bulletCooldown;
             }

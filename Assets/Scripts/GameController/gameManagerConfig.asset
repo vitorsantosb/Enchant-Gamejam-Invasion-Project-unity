@@ -18,5 +18,5 @@ MonoBehaviour:
   waveMultiplyCount: 2
   spawnCooldown: 2
   waveSpawnLimit: 20
-  timerInSeconds: 10
+  timerInSeconds: 60
   enableDebugs: 1

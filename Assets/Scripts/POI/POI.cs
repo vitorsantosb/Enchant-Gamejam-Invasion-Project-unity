@@ -8,6 +8,7 @@ public class POI : MonoBehaviour
 		[HideInInspector]
 		public int health;
 		public int maxHealth;
+		public GameObject deathScreen;
 
     // Start is called before the first frame update
     void Start()
@@ -58,5 +59,11 @@ public class POI : MonoBehaviour
     public void AddHealth(int lifeIncrement) => this.SetLife(this.health + lifeIncrement);
     public void RemoveHealth(int lifeReduced) => this.SetLife(this.health - lifeReduced);
     //public void UpdateLifeBar() => this.LifeBar.fillAmount = ((1.6f / this.maxHealth) * this.health);
-    public void DeathController() => Destroy(this.gameObject);
+    public void DeathController()
+    {
+	    GameObject defaultScreen = GameObject.FindGameObjectWithTag("MainCanvas");
+	    defaultScreen.SetActive(false);
+	    deathScreen.SetActive(true);
+	    Destroy(this.gameObject);   
+    }
 }
