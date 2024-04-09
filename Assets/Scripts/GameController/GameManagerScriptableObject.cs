@@ -9,6 +9,7 @@ public class GameManagerScriptableObject : ScriptableObject
     public int waveIncrementByRound;
     public int waveMultiplyCount;
     public int spawnCooldown;
+    public int waveSpawnLimit;
 
     [Header("Timer Config")] 
     public float timerInSeconds;

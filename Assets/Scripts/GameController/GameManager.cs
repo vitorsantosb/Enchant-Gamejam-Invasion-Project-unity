@@ -26,18 +26,21 @@ public class GameManager : EnumManager
     private int _waveValue;
     private int _turnCount;
     private int _waveMultiply;
+    private float _waveSpawnCooldown;
+    private bool _enableSpawn;
+    private int _waveSpawnLimit;
+    private int _enemyCountSpawned;
 
     //Timer Interface config
     public Text _timerTxt;
     private float _timerLeft;
     private bool _initializeTimer;
-    
 
     //Interface buttons
     public Button readyButton;
 
     //Interface UI
-    
+
     //console debugs 
     [SerializeField] private bool enableDebugs;
 
@@ -48,7 +51,11 @@ public class GameManager : EnumManager
         this._waveValue = gameManagerConfig.waveValue;
         this.enableDebugs = gameManagerConfig.enableDebugs;
         this._waveMultiply = gameManagerConfig.waveMultiplyCount;
-        
+        this._waveSpawnCooldown = gameManagerConfig.spawnCooldown;
+        this._waveSpawnLimit = gameManagerConfig.waveSpawnLimit;
+
+        this._enableSpawn = true;
+
         SetStateGame(STATE_GAME.INITIALIZING);
         if (enableDebugs) Debug.Log("[GAME_MANAGER] Initializing : " + GetStateGame());
     }
@@ -64,23 +71,52 @@ public class GameManager : EnumManager
     private void GenerateEnemies()
     {
         if (enableDebugs) Debug.Log("[GAME_MANAGER] Spawning enemies");
-        for (int i = 0; i < _waveValue; i++)
+
+        // Verificar se é possível spawnar inimigos
+        if (!_enableSpawn) return;
+
+        int enemiesToSpawn = Mathf.Min(_waveValue, _waveSpawnLimit - EnemySpawned.Count);
+        for (int i = 0; i < enemiesToSpawn; i++)
         {
-            int randomSpawn = Random.Range(0, SpawnPositions.Count + 1);
+            int randomSpawn = Random.Range(0, SpawnPositions.Count);
             if (enableDebugs) Debug.Log("RandomNumber for spawn " + randomSpawn);
 
-            Vector3 _spawnPos = SpawnPositions[randomSpawn].GetComponent<Transform>().position;
-            GameObject enemyObj = EnemyList[i].GameObject();
+            Vector3 _spawnPos = SpawnPositions[randomSpawn].transform.position;
+            GameObject enemyObj = EnemyList[Random.Range(0, EnemyList.Count)];
 
             Instantiate(enemyObj, _spawnPos, Quaternion.identity);
-
             EnemySpawned.Add(enemyObj);
+        }
+
+        // Verificar se atingiu o limite de spawn
+        if (EnemySpawned.Count >= _waveSpawnLimit)
+        {
+            Debug.Log("[Spawn Count]: " + EnemySpawned.Count);
+            SetWaveState(WAVE_STATE.STOP_SPAWN);
+            _enableSpawn = false;
+        }
+    }
+
+    private void WaveCooldownSpawn()
+    {
+        if (GetWaveState() == WAVE_STATE.GENERATE_NEW_WAVE && !_enableSpawn)
+        {
+            if (_waveSpawnCooldown > 0)
+            {
+                _waveSpawnCooldown -= Time.deltaTime;
+            }
+            else
+            {
+                _enableSpawn = true;
+                _waveSpawnCooldown = gameManagerConfig.spawnCooldown; // Reset cooldown
+            }
         }
     }
 
     private void Update()
     {
         ReadyToStartGame();
+        WaveCooldownSpawn();
         if (GetStateGame() == STATE_GAME.START_TURN)
         {
             if (_timerLeft > 0)
@@ -91,11 +127,17 @@ public class GameManager : EnumManager
             else
             {
                 SetWaveState(WAVE_STATE.STOP_SPAWN);
-
                 if (enableDebugs) Debug.Log("[GAME_MANAGER]: " + GetWaveState());
                 _timerLeft = 0;
                 _initializeTimer = false;
             }
+        }
+
+        // Verificar se atingiu o limite de spawn
+        if (GetWaveState() == WAVE_STATE.GENERATE_NEW_WAVE && EnemySpawned.Count >= _waveSpawnLimit)
+        {
+            SetWaveState(WAVE_STATE.STOP_SPAWN);
+            _enableSpawn = false;
         }
     }
 
@@ -105,7 +147,7 @@ public class GameManager : EnumManager
         {
             SetWaveState(WAVE_STATE.GENERATE_NEW_WAVE);
             readyButton.gameObject.SetActive(false);
-            GenerateEnemies();
+            GenerateWave();
 
             _turnCount++;
         }
@@ -122,7 +164,7 @@ public class GameManager : EnumManager
 
     void UpdateGameVarieblesForNextTurn()
     {
-        this._waveValue = _waveValue * 2;
+        this._waveValue = _waveValue + 10;
     }
 
     void ReadyToStartGame()
