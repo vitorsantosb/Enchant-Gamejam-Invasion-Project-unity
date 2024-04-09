@@ -40,6 +40,7 @@ public class GameManager : EnumManager
     public Button readyButton;
 
     //Interface UI
+    public Text _turnCountTxt;
 
     //console debugs 
     [SerializeField] private bool enableDebugs;
@@ -169,7 +170,7 @@ public class GameManager : EnumManager
         this._waveValue = _waveValue + 10;
         this._waveSpawnLimit = _waveSpawnLimit + 10;
         this._turnCount++;
-
+        this._turnCountTxt.text = _turnCount.ToString();
         this._timerLeft = gameManagerConfig.timerInSeconds;
 
         if (_turnCount == 10)
@@ -182,6 +183,7 @@ public class GameManager : EnumManager
             for (int i = 0; i <= EnemySpawned.Count; i++)
             {
                 Destroy(this.EnemySpawned[i].gameObject);
+                if(enableDebugs) Debug.Log("[DESTROYED] GameObject: " + EnemySpawned[i].gameObject.name);
                 EnemySpawned.Remove(EnemySpawned[i]);
             }
 

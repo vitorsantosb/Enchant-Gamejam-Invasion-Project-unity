@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a58bb1d95be4ed1aa8136d744b25f15, type: 3}
   m_Name: gameManagerConfig
   m_EditorClassIdentifier: 
-  waveValue: 0
+  waveValue: 10
   waveInitialCount: 5
   waveIncrementByRound: 2
   waveMultiplyCount: 2
-  spawnCooldown: 3
-  timerInSeconds: 0
-  enableDebugs: 0
+  spawnCooldown: 2
+  waveSpawnLimit: 20
+  timerInSeconds: 10
+  enableDebugs: 1
