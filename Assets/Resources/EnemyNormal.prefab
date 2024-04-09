@@ -111,6 +111,14 @@ MonoBehaviour:
   smallerEnemyPrefab: {fileID: 0}
   enemyBulletPrefab: {fileID: 0}
   enemyDamageAreaPrefab: {fileID: 8852491157300456934, guid: 276d71edef1d6408baab6f3ea537608c, type: 3}
+  enemyDrops:
+  - {fileID: 3316074095831728868, guid: 0bb7f1bdaf3da4396a2a1f72427c417f, type: 3}
+  - {fileID: 8651688033919913125, guid: 246a76190a5ed474da4158058f83482f, type: 3}
+  - {fileID: 6315897591116179610, guid: 9e633f18e07b04c3ea21227c5c4bf4aa, type: 3}
+  dropChances:
+  - 0.3
+  - 0.3
+  - 0.3
 --- !u!114 &5454503318433089281
 MonoBehaviour:
   m_ObjectHideFlags: 0

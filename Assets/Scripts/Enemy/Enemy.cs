@@ -34,6 +34,10 @@ public class Enemy : MonoBehaviour
 		public GameObject enemyBulletPrefab;
 		public GameObject enemyDamageAreaPrefab;
 
+		public GameObject[] enemyDrops;
+		public float[] dropChances;
+		private float dropRadius = 1.2f;
+
 
 	// enemy possible behaviors
 	public enum EnemyBehavior
@@ -445,7 +449,21 @@ public class Enemy : MonoBehaviour
 					isDead = true;
 					// TODO: trigger death animation
 					if (type == EnemyType.SPLITTER) Split();
+					DropItems();
 					Destroy(gameObject);
+				}
+		}
+
+		// drop items based on chance, if no chance is set, means its zero, spawn the item around a radius
+		private void DropItems()
+		{
+				for (int i = 0; i < enemyDrops.Length; i++)
+				{
+					if (Random.Range(0.0f, 1.0f) <= dropChances[i])
+					{
+						Vector3 dropPosition = transform.position + new Vector3(Random.Range(-dropRadius, dropRadius), 0, Random.Range(-dropRadius, dropRadius));
+						Instantiate(enemyDrops[i], dropPosition, Quaternion.identity);
+					}
 				}
 		}
 

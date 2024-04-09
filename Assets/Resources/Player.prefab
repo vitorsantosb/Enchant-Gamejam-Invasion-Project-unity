@@ -569,9 +569,8 @@ MonoBehaviour:
   - {fileID: 600121950278170328}
   - {fileID: 1809988977732875915}
   items:
-  - {fileID: 11400000, guid: 49560ed5ef281a1438f19ae8df809a15, type: 2}
   - {fileID: 11400000, guid: 55d1922870058d84b8ba85ae26ff1b1d, type: 2}
-  - {fileID: 11400000, guid: c13614fd470e249faa074573edd6eca9, type: 2}
+  - {fileID: 11400000, guid: 6d9202bbe4d1a4769a83d715272290f6, type: 2}
   - {fileID: 11400000, guid: 6c019a3da0c0a4971810a18897011806, type: 2}
   - {fileID: 11400000, guid: ef858c376b44845138be3c46e166bba3, type: 2}
   inventoryItemPrefab: {fileID: 8144080818460491100, guid: d9df57b7a2eaf874bb3c3f0d126737db, type: 3}

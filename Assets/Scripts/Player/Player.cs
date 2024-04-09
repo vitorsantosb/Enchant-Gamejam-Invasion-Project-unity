@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     private float maxHealth = 100;
 
     private float health;
-    private float strength = 5;
+    private int strength = 0;
 
     public GameObject bulletPrefab;
     private float bulletCooldownTimer = 0f;
@@ -54,6 +54,12 @@ public class Player : MonoBehaviour
             }
         }
 
+				// add mockup items to the inventory
+				for (int i = 0; i < inventoryManager.GetItems().Length; i++)
+				{
+						inventoryManager.AddItem(inventoryManager.GetItems()[i]);
+				}
+
     }
 
     // Update is called once per frame
@@ -65,18 +71,16 @@ public class Player : MonoBehaviour
             OnFire();
             FireBullet();
 
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                for (int i = 0; i < inventoryManager.GetItems().Length; i++)
-                {
-                    inventoryManager.AddItem(inventoryManager.GetItems()[i]);
-                }
-            }
+						// handles item use clicks
+						if(Input.GetMouseButtonDown(0)){
+							OnConsumePotions();
+							OnConsumeFood();
+						}
 
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                AddPotionEffect(new PotionEffect(5, 5000));
-            }
+					
+             
+
+           
 
             float moveH = Input.GetAxis("Horizontal");
             float moveV = Input.GetAxis("Vertical");
@@ -94,23 +98,82 @@ public class Player : MonoBehaviour
 
     void HandlePotions()
     {
+				potionListText.text = "";
+				for (int i = 0; i < effects.Count; i++)
+				{
+						PotionEffect effect = effects[i];
+						if (effect.expireIn < DateTimeOffset.UtcNow.ToUnixTimeMilliseconds())
+						{
+								effects.RemoveAt(i);
+								i--;
+								forceMultiplier -= effect.speed;
+								strength -= effect.damage;
+								continue;
+						}
 
-        potionListText.text = "";
-        for (int i = 0; i < effects.Count; i++)
-        {
-            PotionEffect effect = effects[i];
-            if (effect.expireIn < DateTimeOffset.UtcNow.ToUnixTimeMilliseconds())
-            {
-                effects.RemoveAt(i);
-                i--;
-                forceMultiplier -= effect.speed;
-                continue;
-            }
-
-            float remainingTime = effect.expireIn - DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            potionListText.text += "Poção velocidade: " + effect.speed + "x (" + remainingTime + "ms)\n";
-        }
+						float remainingTime = effect.expireIn - DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+						potionListText.text += "Poção velocidade: " + effect.speed + "x (" + remainingTime + "ms)\n";
+						potionListText.text += "Poção dano: " + effect.damage + " (" + remainingTime + "ms)\n"; // Display the damage effect
+				}
     }
+
+		void OnConsumePotions(){
+			// Dont shoot if inventory is opened
+        if (inventoryManager.IsOpened()) return;
+
+        Item itemInHand = inventoryManager.GetSelectedItem();
+				int slot = inventoryManager.GetSelectedSlot();
+        // There is no item in hand
+        if (!itemInHand) return;
+
+        // Item in hand is a Weapon and Shooter
+        if (itemInHand.type == ItemType.Potion && itemInHand.actionType == ActionType.Speed)
+        {
+						PotionItem potionItem = (PotionItem)itemInHand;
+						this.effects.Add(new PotionEffect(potionItem.increaseSpeed, 0, potionItem.duration));
+        		forceMultiplier += potionItem.increaseSpeed;
+						// remove the potion from the inventory
+						inventoryManager.RemoveItemFromSlot(slot);
+				}
+
+				// Item in hand is a Weapon and Shooter
+        if (itemInHand.type == ItemType.Potion && itemInHand.actionType == ActionType.Damage)
+        {
+						PotionItem potionItem = (PotionItem)itemInHand;
+						this.effects.Add(new PotionEffect(0, potionItem.increaseDamage, potionItem.duration));
+						strength += potionItem.increaseDamage;
+						// remove the potion from the inventory
+						inventoryManager.RemoveItemFromSlot(slot);
+				}
+		}
+
+		void OnConsumeFood(){
+			// Dont shoot if inventory is opened
+				if (inventoryManager.IsOpened()) return;
+
+				Item itemInHand = inventoryManager.GetSelectedItem();
+				int slot = inventoryManager.GetSelectedSlot();
+				// There is no item in hand
+				if (!itemInHand) return;
+
+				// Item in hand is a Weapon and Shooter
+				if (itemInHand.type == ItemType.Food && itemInHand.actionType == ActionType.Heal)
+				{
+						FoodItem foodItem = (FoodItem)itemInHand;
+						this.AddHealth(foodItem.lifeHeal);
+						// remove the potion from the inventory
+						inventoryManager.RemoveItemFromSlot(slot);
+				}
+
+				if (itemInHand.type == ItemType.Food && itemInHand.actionType == ActionType.Eat)
+				{
+						FoodItem foodItem = (FoodItem)itemInHand;
+						this.AddHealth(foodItem.foodHeal);
+						// remove the potion from the inventory
+						inventoryManager.RemoveItemFromSlot(slot);
+				}
+		}
+
 
 
     public void OnTriggerEnter2D(Collider2D other)
@@ -121,19 +184,15 @@ public class Player : MonoBehaviour
             RemoveHealth(enemyDamageArea.areaDamage);
             Destroy(other.gameObject);
         }
-        if (other.gameObject.GetComponent<Item>())
+        if (other.gameObject.GetComponent<CollectibleItem>())
         {
-            Item item = other.gameObject.GetComponent<Item>();
-            inventoryManager.AddItem(item);
+            CollectibleItem collectibleItem = other.gameObject.GetComponent<CollectibleItem>();
+            inventoryManager.AddItem(collectibleItem.item);
             Destroy(other.gameObject);
         }
     }
 
-    void AddPotionEffect(PotionEffect potion)
-    {
-        this.effects.Add(potion);
-        forceMultiplier += potion.speed;
-    }
+  
 
     public float GetHealth() => this.health;
     public void RemoveHealth(float _health)
@@ -153,7 +212,7 @@ public class Player : MonoBehaviour
         }
     }
     public float GetMaxHealth() => this.maxHealth;
-    public float GetStrength() => this.strength;
+    public int GetStrength() => this.strength;
 
     public void Die()
     {
@@ -182,7 +241,7 @@ public class Player : MonoBehaviour
 						WeaponItem weaponItem = (WeaponItem)itemInHand;
 						float bulletSpeed = weaponItem.bulletSpeed;
 						float bulletLifeTime = weaponItem.bulletLifeTime;
-						int bulletDamage = weaponItem.bulletDamage;
+						int bulletDamage = weaponItem.bulletDamage + strength;
 						float bulletCooldown = weaponItem.bulletCooldown;
 						int bulletAmount = weaponItem.bulletAmount;
 						float bulletAcurracyAngle = weaponItem.bulletAcurracyAngle;

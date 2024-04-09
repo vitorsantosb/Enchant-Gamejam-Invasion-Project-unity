@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: bc64e97c3e2d84f28bae29df07d4578b, type: 3}
   m_Name: Flamethrower
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponItem
+  m_EditorClassIdentifier: 
   id: 0
   image: {fileID: 0}
   type: 0
