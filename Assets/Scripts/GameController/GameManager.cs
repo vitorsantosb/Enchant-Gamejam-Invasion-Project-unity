@@ -106,7 +106,7 @@ public class GameManager : EnumManager
     private void WaveCooldownSpawn()
     {
         if (GetWaveState() == WAVE_STATE.GENERATE_NEW_WAVE && !_enableSpawn)
-        {
+        {''
             if (_waveSpawnCooldown > 0)
             {
                 _waveSpawnCooldown -= Time.deltaTime;
@@ -179,6 +179,8 @@ public class GameManager : EnumManager
         {
             if (winScreenGameObject != null)
             {
+                GameObject defaultScreen = GameObject.FindGameObjectWithTag("MainCanvas");
+                defaultScreen.SetActive(false);
                 winScreenGameObject.SetActive(true);
             }
             //TODO finish the game
