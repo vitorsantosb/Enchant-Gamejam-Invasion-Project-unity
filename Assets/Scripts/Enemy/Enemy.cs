@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour
 		[HideInInspector]
 		public int damage;
 		private EnemyType type;
+		private float scale;
 		private float attackRange = 1.5f;
 		public float attackCooldown = 1f;
 		private float attackCooldownTimer = 0f;
@@ -65,6 +66,10 @@ public class Enemy : MonoBehaviour
 				this.speed = enemyObject.enemySpeed;
 				this.damage = enemyObject.enemyDamage;
 				this.type = enemyObject.enemyType;
+				this.scale = enemyObject.enemyScale;
+
+				// scale the enemy based on the scriptable object
+				transform.localScale = new Vector3(scale, scale, scale);
 			}
 			else
 			{
@@ -322,6 +327,24 @@ public class Enemy : MonoBehaviour
 				return;
 			};
 			rb.MovePosition(transform.position + (target - transform.position).normalized * speed * Time.deltaTime);
+
+			// check "Sprite" child and flip it based on the direction
+			SpriteRenderer spriteRenderer = GetSpriteRenderer();
+			if (target.x < transform.position.x)
+			{
+				spriteRenderer.flipX = false;
+			}
+			else
+			{
+				spriteRenderer.flipX = true;
+			}
+		}
+
+		private SpriteRenderer GetSpriteRenderer()
+		{
+			GameObject sprite = transform.Find("Sprite").gameObject;
+			SpriteRenderer spriteRenderer = sprite.GetComponent<SpriteRenderer>();
+			return spriteRenderer;
 		}
 
 		// attack the nearest player

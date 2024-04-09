@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sniper
   m_EditorClassIdentifier: Assembly-CSharp::WeaponItem
   id: 28
-  image: {fileID: 21300000, guid: 66efb24ed46044ab8a039599cbc47d7b, type: 3}
+  image: {fileID: 572060725830135326, guid: 2a04abf17141144fd9eded45ddc6f815, type: 3}
   type: 0
   tile: {fileID: 0}
   actionType: 0

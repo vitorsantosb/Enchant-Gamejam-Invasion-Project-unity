@@ -10,6 +10,7 @@ namespace EnemyObject
         public int enemyDamage;
         public EnemyType enemyType;
         public int enemyMaxHealth;
+				public float enemyScale;
     }
 
     public enum EnemyType

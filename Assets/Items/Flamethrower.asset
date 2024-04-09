@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Flamethrower
   m_EditorClassIdentifier: 
   id: 0
-  image: {fileID: 0}
+  image: {fileID: 1436809753416809354, guid: b0d5dfdd26ce9455583455310a826758, type: 3}
   type: 0
   tile: {fileID: 0}
   actionType: 0
   stackable: 0
-  bulletSpeed: 10
-  bulletLifeTime: 2
-  bulletDamage: 4
-  bulletCooldown: 0.5
-  bulletAmount: 1
+  bulletSpeed: 3
+  bulletLifeTime: 0.6
+  bulletDamage: 1
+  bulletCooldown: 0.1
+  bulletAmount: 10
   bulletAcurracyAngle: 10
-  bulletSpreadAngle: 10
+  bulletSpreadAngle: 5
