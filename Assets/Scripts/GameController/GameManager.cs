@@ -71,7 +71,7 @@ public class GameManager : EnumManager
     private void GenerateEnemies()
     {
         if (enableDebugs) Debug.Log("[GAME_MANAGER] Spawning enemies");
-
+        if (enableDebugs) Debug.Log("[GAME_MANAGER] STATE_GAME: " + GetStateGame());
         // Verificar se é possível spawnar inimigos
         if (!_enableSpawn) return;
 
@@ -116,24 +116,25 @@ public class GameManager : EnumManager
     private void Update()
     {
         ReadyToStartGame();
-        WaveCooldownSpawn();
         if (GetStateGame() == STATE_GAME.START_TURN)
         {
+            Debug.Log("[GAME_MANAGER] STATE_GAME: " + GetStateGame());
             if (_timerLeft > 0)
             {
                 _timerLeft -= Time.deltaTime;
                 UpdateTimer(_timerLeft);
+                WaveCooldownSpawn();
             }
             else
             {
-                SetWaveState(WAVE_STATE.STOP_SPAWN);
+                SetStateGame(STATE_GAME.END_TURN);
+                UpdateGameVarieblesForNextTurn();
                 if (enableDebugs) Debug.Log("[GAME_MANAGER]: " + GetWaveState());
                 _timerLeft = 0;
                 _initializeTimer = false;
             }
         }
 
-        // Verificar se atingiu o limite de spawn
         if (GetWaveState() == WAVE_STATE.GENERATE_NEW_WAVE && EnemySpawned.Count >= _waveSpawnLimit)
         {
             SetWaveState(WAVE_STATE.STOP_SPAWN);
@@ -145,6 +146,7 @@ public class GameManager : EnumManager
     {
         if (GetStateGame() == STATE_GAME.COUNTDOWN_TO_START)
         {
+            SetStateGame(STATE_GAME.START_TURN);
             SetWaveState(WAVE_STATE.GENERATE_NEW_WAVE);
             readyButton.gameObject.SetActive(false);
             GenerateWave();
@@ -165,6 +167,30 @@ public class GameManager : EnumManager
     void UpdateGameVarieblesForNextTurn()
     {
         this._waveValue = _waveValue + 10;
+        this._waveSpawnLimit = _waveSpawnLimit + 10;
+        this._turnCount++;
+
+        this._timerLeft = gameManagerConfig.timerInSeconds;
+
+        if (_turnCount == 10)
+        {
+            //TODO finish the game
+        }
+
+        if (EnemySpawned.Count > 0)
+        {
+            for (int i = 0; i <= EnemySpawned.Count; i++)
+            {
+                Destroy(this.EnemySpawned[i].gameObject);
+                EnemySpawned.Remove(EnemySpawned[i]);
+            }
+
+            EnemySpawned.Clear();
+            if (enableDebugs) Debug.Log("[GAME_MANAGER] Enemy List Cleared: " + EnemySpawned.Count);
+        }
+
+        SetWaveState(WAVE_STATE.GENERATE_NEW_WAVE);
+        SetStateGame(STATE_GAME.START_TURN);
     }
 
     void ReadyToStartGame()
