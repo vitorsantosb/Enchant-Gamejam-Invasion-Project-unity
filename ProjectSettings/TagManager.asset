@@ -9,6 +9,7 @@ TagManager:
   - POI
   - Bullet
   - Enemy
+  - WorldObject
   layers:
   - Default
   - TransparentFX
@@ -16,9 +17,9 @@ TagManager:
   - Floor
   - Water
   - UI
-  - Player
-  - Enemies
   - POI
+  - Enemies
+  - Player
   - 
   - 
   - 

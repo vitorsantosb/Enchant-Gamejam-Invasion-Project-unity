@@ -10,7 +10,8 @@ public class InventoryManager : MonoBehaviour
     public GameObject inventoryItemPrefab;
     public GameObject panel;
 
-    int selectedSlot = -1;
+		[HideInInspector]
+    private int selectedSlot = -1;
 
     private void Start()
     {
@@ -83,6 +84,32 @@ public class InventoryManager : MonoBehaviour
         return false;
     }
 
+		public void RemoveItem(Item item)
+		{
+			for (int i = 0; i < inventorySlots.Length; i++)
+			{
+					InventorySlot slot = inventorySlots[i];
+					InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+
+					if (itemInSlot != null && itemInSlot.item == item)
+					{
+							Destroy(itemInSlot.gameObject);
+							return;
+					}
+			}
+		}
+
+		public void RemoveItemFromSlot(int slot)
+		{
+			InventorySlot inventorySlot = inventorySlots[slot];
+			InventoryItem itemInSlot = inventorySlot.GetComponentInChildren<InventoryItem>();
+
+			if (itemInSlot != null)
+			{
+					Destroy(itemInSlot.gameObject);
+			}
+		}
+
     void SpawnNewItem(Item item, InventorySlot slot)
     {
         GameObject newItemGo = Instantiate(inventoryItemPrefab, slot.transform);
@@ -102,6 +129,11 @@ public class InventoryManager : MonoBehaviour
 
         return null;
     }
+
+		public int GetSelectedSlot()
+		{
+			return selectedSlot;
+		}
 
     public Item[] GetItems()
     {

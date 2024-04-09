@@ -14,13 +14,4 @@ public class EnumManager : GameState
         public WAVE_STATE GetWaveState() => this._waveState;
         public void SetWaveState(WAVE_STATE currentWaveState) => this._waveState = currentWaveState;
 
-        public virtual void OnConnectedToMaster()
-        {
-                throw new System.NotImplementedException();
-        }
-
-        public virtual void OnJoinedLobby()
-        {
-                throw new System.NotImplementedException();
-        }
 }

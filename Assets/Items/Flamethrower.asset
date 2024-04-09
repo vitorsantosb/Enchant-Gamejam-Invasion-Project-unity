@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc64e97c3e2d84f28bae29df07d4578b, type: 3}
+  m_Name: Flamethrower
+  m_EditorClassIdentifier: 
+  id: 0
+  image: {fileID: 1436809753416809354, guid: b0d5dfdd26ce9455583455310a826758, type: 3}
+  type: 0
+  tile: {fileID: 0}
+  actionType: 0
+  stackable: 0
+  bulletSpeed: 3
+  bulletLifeTime: 0.6
+  bulletDamage: 1
+  bulletCooldown: 0.1
+  bulletAmount: 10
+  bulletAcurracyAngle: 10
+  bulletSpreadAngle: 5

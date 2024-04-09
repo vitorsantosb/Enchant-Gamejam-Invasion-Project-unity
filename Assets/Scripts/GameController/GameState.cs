@@ -11,9 +11,10 @@ public class GameState : MonoBehaviour
         MAIN_MENU,
         CHANGE_SCENE,
         INITIALIZING,
-        
+        COUNTDOWN_TO_START,
+        START_TURN,
+        END_TURN,
         GAME_FREEZE_WAVE,
-        
     }
     public enum WAVE_STATE
     {
