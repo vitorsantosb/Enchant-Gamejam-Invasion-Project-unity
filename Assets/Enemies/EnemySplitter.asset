@@ -16,4 +16,4 @@ MonoBehaviour:
   enemyDamage: 5
   enemyType: 4
   enemyMaxHealth: 120
-  enemyLifeBar: {fileID: 0}
+  enemyScale: 1

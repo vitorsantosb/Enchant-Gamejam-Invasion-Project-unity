@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d021efab0b6f14a4aa84fb13cd7de2a2, type: 3}
   m_Name: EnemyWeak
   m_EditorClassIdentifier: 
-  enemySpeed: 5
+  enemySpeed: 18
   enemyDamage: 3
   enemyType: 1
   enemyMaxHealth: 60
-  enemyLifeBar: {fileID: 0}
+  enemyScale: 0.7

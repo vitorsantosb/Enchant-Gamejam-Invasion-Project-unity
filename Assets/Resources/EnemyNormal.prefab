@@ -62,9 +62,9 @@ MonoBehaviour:
   - {fileID: 8651688033919913125, guid: 246a76190a5ed474da4158058f83482f, type: 3}
   - {fileID: 6315897591116179610, guid: 9e633f18e07b04c3ea21227c5c4bf4aa, type: 3}
   dropChances:
-  - 0.3
-  - 0.3
-  - 0.3
+  - 0.1
+  - 0.1
+  - 0.1
 --- !u!114 &5454503318433089281
 MonoBehaviour:
   m_ObjectHideFlags: 0
